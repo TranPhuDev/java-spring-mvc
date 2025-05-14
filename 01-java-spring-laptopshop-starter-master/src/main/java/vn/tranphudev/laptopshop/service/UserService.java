@@ -1,6 +1,7 @@
 package vn.tranphudev.laptopshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -32,4 +33,13 @@ public class UserService {
         User phu = this.userRepository.save(user);
         return phu;
     }
+
+    public User handleDetailUser(long id) {
+        return this.userRepository.findById(id);
+    }
+
+    public void deleteUser(long id) {
+        this.userRepository.deleteById(id);
+    }
+
 }
