@@ -7,15 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import vn.tranphudev.laptopshop.domain.User;
+import vn.tranphudev.laptopshop.repository.UserRepository;
 import vn.tranphudev.laptopshop.service.UserService;
 
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
+
     }
 
     @RequestMapping("/")
@@ -34,8 +36,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/user/create1", method = RequestMethod.POST)
-    public String createUser(Model model, @ModelAttribute("newUser") User hoidanit) {
-        System.out.println("Run here" + hoidanit);
+    public String createUser(Model model, @ModelAttribute("newUser") User user) {
+        System.out.println("Run here" + user);
+        this.userService.handleSaveUser(user);
         return "hello";
     }
 }
