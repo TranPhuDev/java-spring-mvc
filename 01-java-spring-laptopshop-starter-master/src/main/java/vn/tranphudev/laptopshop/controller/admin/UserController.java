@@ -1,4 +1,4 @@
-package vn.tranphudev.laptopshop.controller;
+package vn.tranphudev.laptopshop.controller.admin;
 
 import java.util.List;
 
@@ -33,10 +33,10 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @RequestMapping("/")
-    public String getHomePage(Model model) {
-        return "admin/dashboard/show";
-    }
+    // @RequestMapping("/")
+    // public String getHomePage(Model model) {
+    // return "admin/dashboard/show";
+    // }
 
     // UI Create user
     @GetMapping("/admin/user/create")
