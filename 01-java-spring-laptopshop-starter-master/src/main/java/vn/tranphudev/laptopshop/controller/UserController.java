@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import vn.tranphudev.laptopshop.domain.User;
 import vn.tranphudev.laptopshop.service.UploadService;
@@ -55,15 +56,15 @@ public class UserController {
     // create user
     @PostMapping("/admin/user/create")
     public String createUser(Model model, @ModelAttribute("newUser") User user,
-            @RequestParam("uploadFile") MultipartFile file) {
+            @RequestParam("uploadFile") MultipartFile file, RedirectAttributes redirectAttributes) {
         String avatar = this.uploadService.handelSaveUploadFile(file, "avatar");
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
 
         user.setAvatar(avatar);
         user.setPassword(hashPassword);
-        // Vi role la object nen phai lay qua doi tuong
         user.setRole(this.userService.getRoleByName(user.getRole().getName()));
         this.userService.handleSaveUser(user);
+        redirectAttributes.addFlashAttribute("successMessage", "User created successfully!");
         return "redirect:/admin/user";
     }
 
@@ -88,7 +89,7 @@ public class UserController {
     // update user
     @PostMapping("/admin/user/update")
     public String postUpdateUser(Model model, @ModelAttribute("newUser") User user,
-            @RequestParam("uploadFile") MultipartFile file) {
+            @RequestParam("uploadFile") MultipartFile file, RedirectAttributes redirectAttributes) {
         User currentUser = this.userService.handleDetailUser(user.getId());
         String avatar = this.uploadService.handelSaveUploadFile(file, "avatar");
 
@@ -99,7 +100,7 @@ public class UserController {
             currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
             currentUser.setAvatar(avatar);
             this.userService.handleSaveUser(currentUser);
-
+            redirectAttributes.addFlashAttribute("successMessage", "User updated successfully!");
         }
         return "redirect:/admin/user";
     }
@@ -115,10 +116,11 @@ public class UserController {
 
     // delete user
     @PostMapping("/admin/user/delete")
-    public String postDeleteUser(Model model, @ModelAttribute("newUser") User user) {
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User user,
+            RedirectAttributes redirectAttributes) {
         this.userService.deleteUser(user.getId());
+        redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
         return "redirect:/admin/user";
-
     }
 
 }
