@@ -1,20 +1,24 @@
 package vn.tranphudev.laptopshop.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import vn.tranphudev.laptopshop.domain.Role;
 import vn.tranphudev.laptopshop.domain.User;
+import vn.tranphudev.laptopshop.repository.RoleRepository;
 import vn.tranphudev.laptopshop.repository.UserRepository;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(RoleRepository roleRepository, UserRepository userRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+
     }
 
     public String handleHello() {
@@ -40,6 +44,10 @@ public class UserService {
 
     public void deleteUser(long id) {
         this.userRepository.deleteById(id);
+    }
+
+    public Role getRoleByName(String name) {
+        return roleRepository.findByName(name);
     }
 
 }

@@ -28,7 +28,12 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container mt-5 mx-auto">
-                                <div class="row ">
+                                <h1 class="mt-4">Manage Users</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Users</li>
+                                </ol>
+                                <div class="row mt-5">
                                     <div class="col-12 mx-auto">
                                         <div class="d-flex justify-content-between">
                                             <h3>List Users</h3>
@@ -42,6 +47,7 @@
                                                     <th scope="col">ID</th>
                                                     <th scope="col">Email</th>
                                                     <th scope="col">Full Name</th>
+                                                    <th scope="col">Role</th>
                                                     <th scope="col">Action</th>
                                                 </tr>
                                             </thead>
@@ -51,6 +57,7 @@
                                                         <th>${user.id}</th>
                                                         <td>${user.email}</td>
                                                         <td>${user.fullName}</td>
+                                                        <td>${user.role.name}</td>
                                                         <td>
                                                             <a href="/admin/user/${user.id}" type="button"
                                                                 class="btn btn-success">View</a>

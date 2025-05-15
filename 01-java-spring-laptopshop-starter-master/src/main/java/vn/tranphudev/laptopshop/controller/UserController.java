@@ -1,40 +1,44 @@
 package vn.tranphudev.laptopshop.controller;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.tranphudev.laptopshop.domain.User;
-import vn.tranphudev.laptopshop.repository.UserRepository;
+import vn.tranphudev.laptopshop.service.UploadService;
 import vn.tranphudev.laptopshop.service.UserService;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final UploadService uploadService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService,
+            PasswordEncoder passwordEncoder) {
         this.userService = userService;
-
+        this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
-        List<User> arrUsers = this.userService.getAllUsers();
-        System.out.println(arrUsers);
-        model.addAttribute("phu", "test");
-        model.addAttribute("phutran", "From controller with model");
-        return "hello";
+        return "admin/dashboard/show";
     }
 
-    @RequestMapping("/admin/user/create")
+    // UI Create user
+    @GetMapping("/admin/user/create")
     public String geCreatetUser(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
@@ -49,8 +53,16 @@ public class UserController {
     }
 
     // create user
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-    public String createUser(Model model, @ModelAttribute("newUser") User user) {
+    @PostMapping("/admin/user/create")
+    public String createUser(Model model, @ModelAttribute("newUser") User user,
+            @RequestParam("uploadFile") MultipartFile file) {
+        String avatar = this.uploadService.handelSaveUploadFile(file, "avatar");
+        String hashPassword = this.passwordEncoder.encode(user.getPassword());
+
+        user.setAvatar(avatar);
+        user.setPassword(hashPassword);
+        // Vi role la object nen phai lay qua doi tuong
+        user.setRole(this.userService.getRoleByName(user.getRole().getName()));
         this.userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
@@ -75,12 +87,17 @@ public class UserController {
 
     // update user
     @PostMapping("/admin/user/update")
-    public String postUpdateUser(Model model, @ModelAttribute("newUser") User user) {
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User user,
+            @RequestParam("uploadFile") MultipartFile file) {
         User currentUser = this.userService.handleDetailUser(user.getId());
+        String avatar = this.uploadService.handelSaveUploadFile(file, "avatar");
+
         if (currentUser != null) {
             currentUser.setAddress(user.getAddress());
             currentUser.setFullName(user.getFullName());
             currentUser.setPhone(user.getPhone());
+            currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
+            currentUser.setAvatar(avatar);
             this.userService.handleSaveUser(currentUser);
 
         }

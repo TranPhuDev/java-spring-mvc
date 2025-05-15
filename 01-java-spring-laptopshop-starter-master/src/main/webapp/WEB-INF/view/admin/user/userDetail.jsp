@@ -14,33 +14,57 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <link href="/css/styles.css" rel="stylesheet" />
+
             </head>
 
-            <body>
-                <div class="container mt-5">
-                    <div class="row ">
-                        <div class="col-12 mx-auto">
-                            <div class="d-flex justify-content-between">
-                                <h3>User Detail with id = ${id}</h3>
-                            </div>
-                            <hr>
-                            <div class="card" style="width: 60%;">
-                                <div class="card-header">
-                                    User infomation
+            <body class="sb-nav-fixed">
+
+                <jsp:include page="../layout/header.jsp" />
+                <div id="layoutSidenav">
+                    <jsp:include page="../layout/sidebar.jsp" />
+
+                    <div id="layoutSidenav_content">
+                        <main>
+                            <div class="container mt-5">
+                                <h1 class="mt-4">Manage Users</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active"><a href="/admin/user">Users</a></li>
+                                    <li class="breadcrumb-item active">Detail User</a></li>
+                                </ol>
+                                <div class="row ">
+                                    <div class="col-12 mx-auto">
+                                        <div class="d-flex justify-content-between">
+                                            <h3>User Detail with id = ${id}</h3>
+                                        </div>
+                                        <hr>
+                                        <div class="card" style="width: 60%;">
+                                            <div class="card-header">
+                                                User infomation
+                                            </div>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">ID : ${user.id}</li>
+                                                <li class="list-group-item">Email : - ${user.email}</li>
+                                                <li class="list-group-item">Full Name: - ${user.fullName}</li>
+                                                <li class="list-group-item">Address : - ${user.address}</li>
+                                                <li class="list-group-item">Role : - ${user.role.name}</li>
+                                                <li class="list-group-item">Avatar : - ${user.avatar}</li>
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">ID : ${user.id}</li>
-                                    <li class="list-group-item">Email : - ${user.email}</li>
-                                    <li class="list-group-item">Full Name: - ${user.fullName}</li>
-                                    <li class="list-group-item">Address : - ${user.address}</li>
-
-                                </ul>
                             </div>
-
-                        </div>
-
+                        </main>
+                        <jsp:include page="../layout/footer.jsp" />
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+                    crossorigin="anonymous"></script>
+                <script src="js/scripts.js"></script>
             </body>
 
             </html>

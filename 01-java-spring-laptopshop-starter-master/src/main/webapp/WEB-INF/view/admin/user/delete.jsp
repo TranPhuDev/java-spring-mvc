@@ -17,32 +17,53 @@
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-                <link href="/css/demo.css" rel="stylesheet">
+                <link href="/css/styles.css" rel="stylesheet" />
+
 
             </head>
 
-            <body>
-                <div class="container mt-5">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2>Delete user with id = ${id}</h2>
-                        </div>
-                        <hr>
-                        <div class="col-12">
-                            <div class="alert alert-danger mt-3" role="alert">
-                                Are you sure delete this user!
-                            </div>
-                            <form:form method="post" action="/admin/user/delete" modelAttribute="newUser">
-                                <div class="mb-3" style="display: none;">
-                                    <label class="form-label">ID</label>
-                                    <form:input type="text" class="form-control" path="id" value="${id}" />
-                                </div>
-                                <button class="btn btn-danger">Confirm</button>
-                            </form:form>
-                        </div>
+            <body class="sb-nav-fixed">
 
+                <jsp:include page="../layout/header.jsp" />
+                <div id="layoutSidenav">
+                    <jsp:include page="../layout/sidebar.jsp" />
+
+                    <div id="layoutSidenav_content">
+                        <main>
+                            <div class="container mt-5">
+                                <h1 class="mt-4">Manage Users</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active"><a href="/admin/user">Users</a></li>
+                                    <li class="breadcrumb-item active">Delete User</a></li>
+                                </ol>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2>Delete user with id = ${id}</h2>
+                                    </div>
+                                    <hr>
+                                    <div class="col-12">
+                                        <div class="alert alert-danger mt-3" role="alert">
+                                            Are you sure delete this user!
+                                        </div>
+                                        <form:form method="post" action="/admin/user/delete" modelAttribute="newUser">
+                                            <div class="mb-3" style="display: none;">
+                                                <label class="form-label">ID</label>
+                                                <form:input type="text" class="form-control" path="id" value="${id}" />
+                                            </div>
+                                            <button class="btn btn-danger">Confirm</button>
+                                        </form:form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </main>
+                        <jsp:include page="../layout/footer.jsp" />
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+                    crossorigin="anonymous"></script>
+                <script src="js/scripts.js"></script>
             </body>
 
             </html>

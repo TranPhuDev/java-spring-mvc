@@ -41,10 +41,17 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container mt-5">
+                                <h1 class="mt-4">Manage Users</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active"><a href="/admin/user">Users</a></li>
+                                    <li class="breadcrumb-item active">Create User</a></li>
+                                </ol>
                                 <div class="row">
                                     <div class="col-md-6 col-12 mx-auto">
                                         <h3>Create a user</h3>
-                                        <form:form method="post" action="/admin/user/create" modelAttribute="newUser">
+                                        <form:form method="post" action="/admin/user/create" modelAttribute="newUser"
+                                            enctype="multipart/form-data">
                                             <hr>
                                             <div class="row">
                                                 <div class="col">
@@ -86,26 +93,27 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <label class="form-label">Role:</label>
-                                                    <select class="form-select">
-                                                        <option value="ADMIN">ADMIN</option>
-                                                        <option value="USER">USER</option>
-                                                    </select>
+                                                    <form:select class="form-select" path="role.name">
+                                                        <form:option value="ADMIN">ADMIN</form:option>
+                                                        <form:option value="USER">USER</form:option>
+                                                    </form:select>
                                                 </div>
                                                 <div class="col"> <label for="avatarFile"
                                                         class="form-label">Avatar:</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpeg">
+                                                        accept=".png, .jpg, .jpeg" name="uploadFile" />
                                                 </div>
                                             </div>
                                             <div class="row ">
                                                 <div class="col mt-4 d-flex justify-content-center">
                                                     <img style="max-height: 250px; display: none;" id="avatarPreview"
-                                                        alt="avatar preview">
+                                                        alt="avatar preview" />
                                                 </div>
                                             </div>
 
                                             <button type="submit" class="btn btn-primary mt-5">Create</button>
                                         </form:form>
+
                                     </div>
                                 </div>
                             </div>
