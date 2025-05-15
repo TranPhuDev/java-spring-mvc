@@ -1,7 +1,10 @@
 package vn.tranphudev.laptopshop.controller.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import vn.tranphudev.laptopshop.domain.Product;
 
 @Controller
 public class ProductController {
@@ -9,4 +12,11 @@ public class ProductController {
     public String getProduct() {
         return "admin/product/showProduct";
     }
+
+    @GetMapping("/admin/product/create")
+    public String getCreateProductPage(Model model) {
+        model.addAttribute("newProduct", new Product());
+        return "admin/product/create";
+    }
+
 }
