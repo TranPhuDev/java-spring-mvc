@@ -2,13 +2,18 @@ package vn.tranphudev.laptopshop.domain;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -16,11 +21,24 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull
+    @Size(min = 3, message = "Name of product must be greater than or equal to 3")
     private String name;
+    @NotNull
+
+    @DecimalMin(value = "1.0", inclusive = true, message = "Price must be greater than or equal to 1")
     private double price;
     private String image;
+    @NotBlank
+    @Size(min = 10, max = 100, message = "Detail description must be between 10 and 100 characters")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
-    private String sortDesc;
+    @NotBlank
+    @Size(min = 5, max = 100, message = "Detail description must be between 5 and 100 characters")
+    private String shortDesc;
+    @NotNull
+    @Min(value = 1, message = "Quantity must be greater than or equal to 1")
     private long quantity;
     private long sold;
     private String factory;
@@ -70,12 +88,12 @@ public class Product {
         this.detailDesc = detailDesc;
     }
 
-    public String getSortDesc() {
-        return sortDesc;
+    public String getShortDesc() {
+        return shortDesc;
     }
 
-    public void setSortDesc(String sortDesc) {
-        this.sortDesc = sortDesc;
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
     }
 
     public long getQuantity() {
@@ -113,7 +131,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product [id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", detailDesc="
-                + detailDesc + ", sortDesc=" + sortDesc + ", quantity=" + quantity + ", sold=" + sold + ", factory="
+                + detailDesc + ", sortDesc=" + shortDesc + ", quantity=" + quantity + ", sold=" + sold + ", factory="
                 + factory + ", target=" + target + "]";
     }
 
