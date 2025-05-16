@@ -11,6 +11,8 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+
 :root {
     --bs-blue: #0d6efd;
     --bs-indigo: #6610f2;

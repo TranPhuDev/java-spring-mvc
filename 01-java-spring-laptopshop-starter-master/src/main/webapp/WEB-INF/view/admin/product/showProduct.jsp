@@ -8,7 +8,7 @@
                 <head>
                     <meta charset="UTF-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    <title>Document</title>
+                    <title>Product Management</title>
                     <!-- Latest compiled and minified CSS -->
                     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
                         rel="stylesheet" />
@@ -18,7 +18,60 @@
 
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+                    <!-- Font Awesome -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
                     <link href="/css/styles.css" rel="stylesheet" />
+                    <style>
+                        .product-image {
+                            width: 80px;
+                            height: 80px;
+                            object-fit: cover;
+                            border-radius: 8px;
+                        }
+
+                        .action-buttons .btn {
+                            padding: 0.25rem 0.5rem;
+                            font-size: 0.875rem;
+                            width: 32px;
+                            height: 32px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 2px;
+                        }
+
+                        .action-buttons .btn i {
+                            margin: 0;
+                        }
+
+                        .table th {
+                            background-color: #f8f9fa;
+                            font-weight: 600;
+                        }
+
+                        .status-badge {
+                            padding: 0.35em 0.65em;
+                            font-size: 0.75em;
+                            font-weight: 600;
+                            border-radius: 0.25rem;
+                        }
+
+                        .status-in-stock {
+                            background-color: #d1e7dd;
+                            color: #0f5132;
+                        }
+
+                        .status-low-stock {
+                            background-color: #fff3cd;
+                            color: #856404;
+                        }
+
+                        .status-out-of-stock {
+                            background-color: #f8d7da;
+                            color: #842029;
+                        }
+                    </style>
                 </head>
 
                 <body class="sb-nav-fixed">
@@ -28,78 +81,104 @@
 
                         <div id="layoutSidenav_content">
                             <main>
-                                <div class="container mt-5 mx-auto">
-                                    <!-- Toast Notification -->
-                                    <div class="position-fixed top-0 end-0 p-3" style="z-index: 10000">
-                                        <div id="successToast" class="toast" role="alert" aria-live="assertive"
-                                            aria-atomic="true" data-bs-autohide="true" data-bs-delay="3000">
-                                            <div class="toast-header" id="toastHeader">
-                                                <strong class="me-auto" id="toastTitle">Success</strong>
-                                                <button type="button" class="btn-close btn-close-white"
-                                                    data-bs-dismiss="toast" aria-label="Close"></button>
-                                            </div>
-                                            <div class="toast-body" id="toastBody">${successMessage}</div>
-                                        </div>
-                                    </div>
-                                    <!-- Toast Notification -->
-                                    <div class="position-fixed top-0 end-0 p-3" style="z-index: 10000">
-                                        <div id="successToast" class="toast" role="alert" aria-live="assertive"
-                                            aria-atomic="true" data-bs-autohide="true" data-bs-delay="3000">
-                                            <div class="toast-header" id="toastHeader">
-                                                <strong class="me-auto" id="toastTitle">Success</strong>
-                                                <button type="button" class="btn-close btn-close-white"
-                                                    data-bs-dismiss="toast" aria-label="Close"></button>
-                                            </div>
-                                            <div class="toast-body" id="toastBody">${successMessage}</div>
-                                        </div>
+                                <div class="container-fluid px-4">
+                                    <div class="d-flex justify-content-between align-items-center mt-4">
+                                        <h1 class="mb-0">Product Management</h1>
+                                        <a href="/admin/product/create" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> Add New Product
+                                        </a>
                                     </div>
 
-                                    <h1 class="mt-4">Manage Products</h1>
                                     <ol class="breadcrumb mb-4">
                                         <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                         <li class="breadcrumb-item active">Products</li>
                                     </ol>
-                                    <div class="row mt-5">
-                                        <div class="col-12 mx-auto">
-                                            <div class="d-flex justify-content-between">
-                                                <h3>List Users</h3>
-                                                <a href="/admin/product/create" class="btn btn-primary">Create
-                                                    Product</a>
-                                            </div>
+
+                                    <c:if test="${not empty successMessage}">
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            ${successMessage}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
                                         </div>
-                                        <div class="col-12 mt-3">
-                                            <table class="table table-hover table-bordered">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Price</th>
-                                                        <th scope="col">Factory</th>
-                                                        <th scope="col">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:forEach var="product" items="${product}">
+                                    </c:if>
+
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fas fa-table me-1"></i>
+                                            Product List
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-hover table-bordered">
+                                                    <thead>
                                                         <tr>
-                                                            <th>${product.id}</th>
-                                                            <td>${product.name}</td>
-                                                            <td>
-                                                                <fmt:formatNumber type="number"
-                                                                    value="${product.price}" /> đ
-                                                            </td>
-                                                            <td>${product.factory}</td>
-                                                            <td>
-                                                                <a href="/admin/product/${product.id}" type="button"
-                                                                    class="btn btn-success">View</a>
-                                                                <a href="/admin/product/update/${product.id}"
-                                                                    type="button" class="btn btn-danger mx-2">Update</a>
-                                                                <a href="/admin/product/delete/${product.id}"
-                                                                    type="button" class="btn btn-warning">Delete</a>
-                                                            </td>
+                                                            <th style="width: 60px">Image</th>
+                                                            <th>Name</th>
+                                                            <th>Price</th>
+                                                            <th>Stock</th>
+                                                            <th>Sold</th>
+                                                            <th>Status</th>
+                                                            <th style="width: 200px">Actions</th>
                                                         </tr>
-                                                    </c:forEach>
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <c:forEach items="${product}" var="product">
+                                                            <tr>
+                                                                <td class="text-center">
+                                                                    <img src="/images/product/${product.image}"
+                                                                        alt="${product.name}" class="product-image">
+                                                                </td>
+                                                                <td>
+                                                                    <div class="fw-bold">${product.name}</div>
+                                                                    <small class="text-muted">ID: ${product.id}</small>
+                                                                </td>
+                                                                <td>
+                                                                    <fmt:formatNumber type="number"
+                                                                        value="${product.price}" /> đ
+                                                                </td>
+                                                                <td>${product.quantity}</td>
+                                                                <td>${product.sold}</td>
+                                                                <td>
+                                                                    <c:choose>
+                                                                        <c:when test="${product.quantity > 10}">
+                                                                            <span
+                                                                                class="status-badge status-in-stock">In
+                                                                                Stock</span>
+                                                                        </c:when>
+                                                                        <c:when test="${product.quantity > 0}">
+                                                                            <span
+                                                                                class="status-badge status-low-stock">Low
+                                                                                Stock</span>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <span
+                                                                                class="status-badge status-out-of-stock">Out
+                                                                                of Stock</span>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </td>
+                                                                <td class="action-buttons">
+                                                                    <a href="/admin/product/${product.id}"
+                                                                        class="btn btn-info btn-sm"
+                                                                        title="View Details">
+                                                                        <i class="fas fa-eye"></i>
+                                                                    </a>
+                                                                    <a href="/admin/product/update/${product.id}"
+                                                                        class="btn btn-warning btn-sm"
+                                                                        title="Edit Product">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </a>
+                                                                    <a href="/admin/product/delete/${product.id}"
+                                                                        class="btn btn-danger btn-sm"
+                                                                        title="Delete Product">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -110,35 +189,8 @@
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                         crossorigin="anonymous"></script>
                     <script src="js/scripts.js"></script>
-                    <script>
-                        // Show toast if there's a success message
-                        document.addEventListener("DOMContentLoaded", function () {
-                            const successMessage = "${successMessage}";
-                            if (successMessage) {
-                                const toastEl = document.getElementById("successToast");
-                                const toastHeader = document.getElementById("toastHeader");
-                                const toastTitle = document.getElementById("toastTitle");
 
-                                // Set toast style based on message content
-                                if (successMessage.includes("created")) {
-                                    toastHeader.className = "toast-header bg-success text-white";
-                                    toastTitle.textContent = "Success";
-                                } else if (successMessage.includes("updated")) {
-                                    toastHeader.className = "toast-header bg-primary text-white";
-                                    toastTitle.textContent = "Updated";
-                                } else if (successMessage.includes("deleted")) {
-                                    toastHeader.className = "toast-header bg-danger text-white";
-                                    toastTitle.textContent = "Deleted";
-                                }
 
-                                const toast = new bootstrap.Toast(toastEl, {
-                                    autohide: true,
-                                    delay: 3000,
-                                });
-                                toast.show();
-                            }
-                        });
-                    </script>
                 </body>
 
                 </html>
