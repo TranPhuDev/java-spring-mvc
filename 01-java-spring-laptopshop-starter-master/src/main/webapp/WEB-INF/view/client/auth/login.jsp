@@ -59,8 +59,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
       button {
         border-radius: 20px;
-        border: 1px solid #ff4b2b;
-        background-color: #ff4b2b;
+        border: 1px solid #81c408;
+        background-color: #81c408;
         color: #ffffff;
         font-size: 12px;
         font-weight: bold;
@@ -112,30 +112,18 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         width: 900px;
         max-width: 100%;
         min-height: 550px;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-      }
-
-      .container.loaded {
-        opacity: 1;
       }
 
       .form-container {
         position: absolute;
         top: 0;
         height: 100%;
-        transition: all 0.6s ease-in-out;
       }
 
       .sign-in-container {
         left: 0;
         width: 50%;
         z-index: 5;
-        opacity: 1 !important;
-      }
-
-      .container.right-panel-active .sign-in-container {
-        transform: translateX(100%);
       }
 
       .sign-up-container {
@@ -143,28 +131,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         width: 50%;
         opacity: 0;
         z-index: 1;
-        transform: translateX(100%);
-      }
-
-      .container.right-panel-active .sign-up-container {
-        transform: translateX(100%);
-        opacity: 1;
-        z-index: 5;
-        animation: show 0.6s;
-      }
-
-      @keyframes show {
-        0%,
-        49.99% {
-          opacity: 0;
-          z-index: 1;
-        }
-
-        50%,
-        100% {
-          opacity: 1;
-          z-index: 5;
-        }
+        display: none;
       }
 
       .overlay-container {
@@ -174,18 +141,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         width: 50%;
         height: 100%;
         overflow: hidden;
-        transition: transform 0.6s ease-in-out;
         z-index: 100;
       }
 
-      .container.right-panel-active .overlay-container {
-        transform: translateX(-100%);
-      }
-
       .overlay {
-        background: #ff416c;
-        background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-        background: linear-gradient(to right, #ff4b2b, #ff416c);
+        background: #81c408;
+        background: -webkit-linear-gradient(to right, #81c408, #8fd400);
+        background: linear-gradient(to right, #81c408, #8fd400);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 0 0;
@@ -275,6 +237,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     password.
                   </div>
                 </c:if>
+                <!-- <c:if test="${param.error != null}">
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    style="
+                      margin-bottom: 20px;
+                      padding: 10px;
+                      border-radius: 5px;
+                      background-color: #ffebee;
+                      color: #c62828;
+                      border: 1px solid #ffcdd2;
+                    "
+                  >
+                    <i class="fas fa-exclamation-circle"></i> Invalid email or
+                    password.
+                  </div>
+                </c:if> -->
                 <h1>Sign in</h1>
                 <div class="social-container">
                   <a href="#" class="social"
@@ -373,23 +352,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <script>
       const signUpButton = document.getElementById("signUp");
       const signInButton = document.getElementById("signIn");
-      const container = document.getElementById("container");
 
-      // Add loaded class after a small delay to prevent flash
-      window.addEventListener("load", function () {
-        setTimeout(() => {
-          container.classList.add("loaded");
-        }, 50);
-      });
-
-      // Add click handlers for panel switching
       signUpButton.addEventListener("click", () => {
-        container.classList.add("right-panel-active");
         window.location.href = "/register";
       });
 
       signInButton.addEventListener("click", () => {
-        container.classList.remove("right-panel-active");
         window.location.href = "/login";
       });
     </script>

@@ -249,7 +249,7 @@
 
 
                 <!-- Back to Top -->
-                <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+                <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top" id="backToTop"><i
                         class="fa fa-arrow-up"></i></a>
 
 
@@ -263,6 +263,27 @@
 
                 <!-- Template Javascript -->
                 <script src="/client/js/main.js"></script>
+
+                <script>
+                    // Back to top button functionality
+                    $(document).ready(function() {
+                        // Show/hide button based on scroll position
+                        $(window).scroll(function() {
+                            if ($(this).scrollTop() > 300) {
+                                $('#backToTop').fadeIn();
+                            } else {
+                                $('#backToTop').fadeOut();
+                            }
+                        });
+
+                        // Instant scroll to top when clicked
+                        $('#backToTop').click(function(e) {
+                            e.preventDefault();
+                            $('#backToTop').fadeOut();
+                            window.scrollTo(0, 0);
+                        });
+                    });
+                </script>
             </body>
 
             </html>
