@@ -107,7 +107,7 @@
                         overflow: hidden;
                         width: 900px;
                         max-width: 100%;
-                        min-height: 550px;
+                        min-height: 600px;
                         opacity: 0;
                         transition: opacity 0.3s ease-in-out;
                     }
@@ -276,7 +276,7 @@
                 <div id="layoutAuthentication">
                     <div id="layoutAuthentication_content">
                         <main>
-                            <div class="container right-panel-active" style="margin-top: 100px" id="container">
+                            <div class="container right-panel-active" style="margin-top: 80px" id="container">
                                 <div class="form-container sign-up-container">
                                     <form:form method="post" action="/register" modelAttribute="registerUser"
                                         id="registerForm">
@@ -294,13 +294,17 @@
                                             <c:set var="errorEmail">
                                                 <form:errors path="email" cssClass="invalid-feedback" />
                                             </c:set>
+                                            <c:set var="errorFirstName">
+                                                <form:errors path="firstName" cssClass="invalid-feedback" />
+                                            </c:set>
+
                                             <div class="col-md-6">
-                                                <form:input type="text" placeholder="First Name" path="firstName"
-                                                    required="true" />
+                                                <form:input class="${not empty errorFirstName ? 'is-invalid' : ''}"
+                                                    type="text" placeholder="First Name" path="firstName" />
+                                                ${errorFirstName}
                                             </div>
                                             <div class="col-md-6">
-                                                <form:input type="text" placeholder="Last Name" path="lastName"
-                                                    required="true" />
+                                                <form:input type="text" placeholder="Last Name" path="lastName" />
                                             </div>
                                         </div>
                                         <form:input type="email" placeholder="Email" path="email"

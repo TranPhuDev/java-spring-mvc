@@ -1,4 +1,5 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -257,6 +258,23 @@
           <div class="container" style="margin-top: 100px" id="container">
             <div class="form-container sign-in-container">
               <form action="/login" method="post">
+                <c:if test="${param.error != null}">
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    style="
+                      margin-bottom: 20px;
+                      padding: 10px;
+                      border-radius: 5px;
+                      background-color: #ffebee;
+                      color: #c62828;
+                      border: 1px solid #ffcdd2;
+                    "
+                  >
+                    <i class="fas fa-exclamation-circle"></i> Invalid email or
+                    password.
+                  </div>
+                </c:if>
                 <h1>Sign in</h1>
                 <div class="social-container">
                   <a href="#" class="social"
@@ -270,8 +288,15 @@
                   ></a>
                 </div>
                 <span>or use your account</span>
-                <input type="email" placeholder="Email" name="email" />
+                <input type="email" placeholder="Email" name="username" />
                 <input type="password" placeholder="Password" name="password" />
+                <div>
+                  <input
+                    type="hidden"
+                    name="${_csrf.parameterName}"
+                    value="${_csrf.token}"
+                  />
+                </div>
                 <a href="#">Forgot your password?</a>
                 <button type="submit">Sign In</button>
               </form>
