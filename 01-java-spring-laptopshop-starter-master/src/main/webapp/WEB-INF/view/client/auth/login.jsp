@@ -210,6 +210,31 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         height: 40px;
         width: 40px;
       }
+
+      .password-container {
+        position: relative;
+        width: 100%;
+      }
+
+      .password-container input {
+        padding-right: 40px;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        color: #666;
+      }
+
+      .toggle-password:focus {
+        outline: none;
+      }
     </style>
   </head>
 
@@ -268,7 +293,21 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </div>
                 <span>or use your account</span>
                 <input type="email" placeholder="Email" name="username" />
-                <input type="password" placeholder="Password" name="password" />
+                <div class="password-container">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    id="password"
+                  />
+                  <button
+                    type="button"
+                    class="toggle-password"
+                    onclick="togglePassword('password')"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
                 <div>
                   <input
                     type="hidden"
@@ -314,12 +353,36 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   </div>
                 </div>
                 <input type="email" placeholder="Email" name="email" />
-                <input type="password" placeholder="Password" name="password" />
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  name="confirmPassword"
-                />
+                <div class="password-container">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    id="registerPassword"
+                  />
+                  <button
+                    type="button"
+                    class="toggle-password"
+                    onclick="togglePassword('registerPassword')"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
+                <div class="password-container">
+                  <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="confirmPassword"
+                    id="confirmPassword"
+                  />
+                  <button
+                    type="button"
+                    class="toggle-password"
+                    onclick="togglePassword('confirmPassword')"
+                  >
+                    <i class="fas fa-eye"></i>
+                  </button>
+                </div>
                 <button type="submit">Sign Up</button>
               </form>
             </div>
@@ -360,6 +423,22 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       signInButton.addEventListener("click", () => {
         window.location.href = "/login";
       });
+
+      function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const toggleButton = passwordInput.nextElementSibling;
+        const icon = toggleButton.querySelector("i");
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        }
+      }
     </script>
   </body>
 </html>
