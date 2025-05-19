@@ -4,36 +4,86 @@ This is the **starter project** for the **Java Spring MVC - Xây Dựng FullStac
 
 ---
 
-## 📢 IMPORTANT NOTICE  
+## 📢 IMPORTANT NOTICE
+
 This source code is provided **exclusively for enrolled students** in this course.  
 ❌ **DO NOT UPLOAD this code to GitHub (Public), GitLab, or any other public repository.**  
 ❌ **DO NOT SHARE this project on forums, Telegram, Discord, or social media.**  
 ✅ You **can use Git** for personal learning, but **your repository must be PRIVATE**.
 
-💡 **Violators may face:**  
-- DMCA takedown requests.  
-- Account suspension on learning platforms.  
-- Legal action in serious cases.  
+💡 **Violators may face:**
+
+- DMCA takedown requests.
+- Account suspension on learning platforms.
+- Legal action in serious cases.
 
 📩 For inquiries, contact: **admin@hoidanit.vn**
 
 ---
 
-## 📖 How to Use This Project?
+## 📖 Hướng dẫn cài đặt và chạy dự án
 
-===
-Môi trường chạy dự án: Java 17
+### Yêu cầu hệ thống
+
+- Java JDK 17
+- Maven
+- IDE (khuyến nghị sử dụng Vscode hoặc Eclipse)
+- MySQL Database
+
+### Các bước cài đặt
+
+1. **Clone dự án**
+
+   ```bash
+   git clone [repository-url]
+   cd [project-directory]
+   ```
+
+2. **Cấu hình Database**
+
+   - Tạo database MySQL mới
+   - Cập nhật thông tin kết nối database trong file `application.properties`:
+     ```properties
+     spring.datasource.url=jdbc:mysql://localhost:3306/[your-database-name]
+     spring.datasource.username=[your-username]
+     spring.datasource.password=[your-password]
+     ```
+
+3. **Build và chạy dự án**
+
+   ```bash
+   # Build project
+   mvn clean install
+
+   # Chạy ứng dụng
+   mvn spring-boot:run
+   ```
+
+4. **Truy cập ứng dụng**
+   - Mở trình duyệt và truy cập: `http://localhost:8080`
+
+### Cấu trúc thư mục
+
+```
+src/
+├── main/
+│   ├── java/        # Mã nguồn Java
+│   ├── resources/   # Cấu hình và tài nguyên
+│   └── webapp/      # Frontend resources
+└── test/           # Unit tests
+```
+
+### Troubleshooting
+
+- Nếu gặp lỗi port 8080 đã được sử dụng, bạn có thể thay đổi port trong `application.properties`:
+  ```properties
+  server.port=8081
+  ```
+- Đảm bảo MySQL đang chạy trước khi khởi động ứng dụng
+- Kiểm tra logs trong console để xem thông báo lỗi chi tiết
+
+---
 
 ## Về tác giả
-Mọi thông tin về Tác giả Hỏi Dân IT, các bạn có thể tìm kiếm tại đây:
 
-Website chính thức: https://hoidanit.vn/
-
-Youtube “Hỏi Dân IT” : https://www.youtube.com/@hoidanit
-
-Tiktok “Hỏi Dân IT” :  https://www.tiktok.com/@hoidanit
-
-Fanpage “Hỏi Dân IT” : https://www.facebook.com/askITwithERIC/
-
-Udemy Hỏi Dân IT: https://www.udemy.com/user/eric-7039/
-
+Facebook "Trần Phú" : https://www.facebook.com/phu.tran.244255
