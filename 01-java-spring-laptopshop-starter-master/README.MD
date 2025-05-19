@@ -17,7 +17,7 @@ This source code is provided **exclusively for enrolled students** in this cours
 - Account suspension on learning platforms.
 - Legal action in serious cases.
 
-📩 For inquiries, contact: **admin@hoidanit.vn**
+📩 For inquiries, contact: **tranphudev3110@gmail.com**
 
 ---
 
