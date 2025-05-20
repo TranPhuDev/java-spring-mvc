@@ -1,6 +1,7 @@
 package vn.tranphudev.laptopshop.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,7 +12,7 @@ public interface ProductRepsitory extends JpaRepository<Product, Long> {
 
     List<Product> findAll();
 
-    Product findById(long id);
+    Optional<Product> findById(long id);
 
     Product deleteById(long id);
 }

@@ -1,6 +1,7 @@
 package vn.tranphudev.laptopshop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,7 +77,7 @@ public class ProductController {
     // UI view detail product
     @GetMapping("/admin/product/{id}")
     public String getDetailProductPage(Model model, @PathVariable long id) {
-        Product product = this.productService.handleDetailProduct(id);
+        Product product = this.productService.handleDetailProduct(id).get();
         model.addAttribute("id", id);
         model.addAttribute("product", product);
 
@@ -86,7 +87,7 @@ public class ProductController {
     // UI Update product
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProductPage(Model model, @PathVariable long id) {
-        Product currentProduct = this.productService.handleDetailProduct(id);
+        Product currentProduct = this.productService.handleDetailProduct(id).get();
         model.addAttribute("newProduct", currentProduct);
         return "admin/product/productUpdate";
     }
@@ -107,10 +108,14 @@ public class ProductController {
             return "admin/product/productUpdate";
         }
 
-        Product currentProduct = this.productService.handleDetailProduct(id);
+        Product currentProduct = this.productService.handleDetailProduct(product.getId()).get();
         String productImg = this.uploadService.handelSaveUploadFile(file, "product");
 
         if (currentProduct != null) {
+            if (!file.isEmpty()) {
+                String img = this.uploadService.handelSaveUploadFile(file, "product");
+                currentProduct.setImage(img);
+            }
             currentProduct.setName(product.getName());
             currentProduct.setPrice(product.getPrice());
             currentProduct.setQuantity(product.getQuantity());
@@ -131,16 +136,16 @@ public class ProductController {
     // UI Delete product
     @GetMapping("/admin/product/delete/{id}")
     public String getDeleteProductPage(Model model, @PathVariable long id) {
-        Product product = this.productService.handleDetailProduct(id);
+        Product product = this.productService.handleDetailProduct(id).get();
         model.addAttribute("product", product);
         return "admin/product/delete";
     }
 
     // Logic Delete product
     @PostMapping("/admin/product/delete/{id}")
-    public String handleDeleteProduct(@PathVariable long id,
+    public String handleDeleteProduct(@PathVariable long id, @ModelAttribute("newProduct") Product pr,
             RedirectAttributes redirectAttributes) {
-        this.productService.handleDeleteProduct(id);
+        this.productService.handleDeleteProduct(pr.getId());
         redirectAttributes.addFlashAttribute("successMessage", "Product deleted successfully!");
         return "redirect:/admin/product";
     }

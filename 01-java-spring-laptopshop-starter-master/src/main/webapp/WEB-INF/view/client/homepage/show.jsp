@@ -115,17 +115,26 @@
                                                                 </h4>
                                                                 <p style="font-size: 13px;">${product.shortDesc}</p>
                                                                 <div
-                                                                    class="d-flex justify-content-between flex-lg-wrap">
+                                                                    class="d-flex justify-content-center  flex-lg-wrap">
                                                                     <p style="font-size: 15px; text-align: center; width: 100%;"
                                                                         class="text-dark fs-5 fw-bold mb-3">
                                                                         <fmt:formatNumber type="number"
                                                                             value="${product.price}" />
 
                                                                     </p>
-                                                                    <a href="#"
-                                                                        class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                            class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                        Add to cart</a>
+                                                                    <form action="/add-product-to-cart/${product.id}"
+                                                                        method="post">
+                                                                        <input type="hidden"
+                                                                            name="${_csrf.parameterName}"
+                                                                            value="${_csrf.token}" />
+
+                                                                        <button
+                                                                            class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                            Add to cart
+                                                                        </button>
+                                                                    </form>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -266,9 +275,9 @@
 
                 <script>
                     // Back to top button functionality
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         // Show/hide button based on scroll position
-                        $(window).scroll(function() {
+                        $(window).scroll(function () {
                             if ($(this).scrollTop() > 300) {
                                 $('#backToTop').fadeIn();
                             } else {
@@ -277,7 +286,7 @@
                         });
 
                         // Instant scroll to top when clicked
-                        $('#backToTop').click(function(e) {
+                        $('#backToTop').click(function (e) {
                             e.preventDefault();
                             $('#backToTop').fadeOut();
                             window.scrollTo(0, 0);

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import vn.tranphudev.laptopshop.domain.Role;
 import vn.tranphudev.laptopshop.domain.User;
 import vn.tranphudev.laptopshop.domain.DTO.RegisterDTO;
+import vn.tranphudev.laptopshop.repository.OrderRepository;
+import vn.tranphudev.laptopshop.repository.ProductRepsitory;
 import vn.tranphudev.laptopshop.repository.RoleRepository;
 import vn.tranphudev.laptopshop.repository.UserRepository;
 
@@ -15,10 +17,15 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ProductRepsitory productRepsitory;
+    private final OrderRepository orderRepository;
 
-    public UserService(RoleRepository roleRepository, UserRepository userRepository) {
+    public UserService(RoleRepository roleRepository, UserRepository userRepository, ProductRepsitory productRepsitory,
+            OrderRepository orderRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.orderRepository = orderRepository;
+        this.productRepsitory = productRepsitory;
 
     }
 
@@ -67,6 +74,28 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         return this.userRepository.findByEmail(email);
+    }
+
+    public long countUsers() {
+        return this.userRepository.count();
+    }
+
+    public long countProductcs() {
+        return this.productRepsitory.count();
+
+    }
+
+    public long countOrders() {
+        return this.orderRepository.count();
+
+    }
+
+    public User findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
+    public User updateUser(User user) {
+        return this.userRepository.save(user);
     }
 
 }
