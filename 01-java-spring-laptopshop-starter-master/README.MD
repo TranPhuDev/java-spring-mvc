@@ -15,7 +15,8 @@
 - Java JDK 17
 - Maven
 - IDE (khuyến nghị sử dụng Vscode hoặc Eclipse)
-- MySQL Database
+- MySQL 5.7 hoặc cao hơn
+- Docker và Docker Compose (tùy chọn)
 
 ### Các bước cài đặt
 
@@ -28,15 +29,14 @@
 
 2. **Cấu hình Database**
 
-   - Tạo database MySQL mới
-   - Cập nhật thông tin kết nối database trong file `application.properties`:
-     ```properties
-     spring.datasource.url=jdbc:mysql://localhost:3306/[your-database-name]
-     spring.datasource.username=[your-username]
-     spring.datasource.password=[your-password]
-     ```
+   - Tạo database MySQL mới với tên `laptopshop`
+   - Copy file `application.properties.template` thành `application.properties`
+   - Cấu hình đã được thiết lập sẵn cho VNPay và Google OAuth2
+   - Chỉ cần cập nhật thông tin database nếu cần
 
 3. **Build và chạy dự án**
+
+   **Cách 1: Chạy trực tiếp**
 
    ```bash
    # Build project
@@ -46,8 +46,23 @@
    mvn spring-boot:run
    ```
 
-4. **Truy cập ứng dụng**
-   - Mở trình duyệt và truy cập: `http://localhost:8080`
+4. **Tạo tài khoản Admin**
+
+   ```sql
+   -- Tạo role ADMIN
+   INSERT INTO roles (name, description)
+   VALUES ('ADMIN', 'Administrator role');
+
+   Sau khi chạy ứng dụng lần đầu, thực hiện đăng nhập bằng google để vào admin:
+
+   ```
+
+
+
+
+5. **Truy cập ứng dụng**
+   - Website: http://localhost:8080
+   - Admin Panel: http://localhost:8080/admin
 
 ### Cấu trúc thư mục
 
@@ -60,105 +75,49 @@ src/
 └── test/           # Unit tests
 ```
 
+### Tính năng đã được cấu hình sẵn
+
+- ✅ Đăng nhập/Đăng ký với Google OAuth2
+- ✅ Thanh toán qua VNPay Sandbox (Thẻ nội địa và tài khoản ngân hàng -> NCB -> 
+      Số thẻ: 9704198526191432198
+      Tên chủ thẻ	: NGUYEN VAN A
+      Ngày phát hành	: 07/15
+      Mật khẩu OTP : 123456 
+ ) 
+- ✅ Quản lý sản phẩm
+- ✅ Giỏ hàng
+- ✅ Quản lý đơn hàng
+- ✅ Dashboard admin
+
+### Quyền truy cập Admin
+
+Sau khi đăng nhập với tài khoản admin, bạn có thể truy cập các trang quản trị:
+
+- Dashboard: `/admin`
+- Quản lý người dùng: `/admin/user`
+- Quản lý sản phẩm: `/admin/product`
+- Quản lý đơn hàng: `/admin/order`
+
 ### Troubleshooting
 
-- Nếu gặp lỗi port 8080 đã được sử dụng, bạn có thể thay đổi port trong `application.properties`:
-  ```properties
-  server.port=8081
-  ```
-- Đảm bảo MySQL đang chạy trước khi khởi động ứng dụng
-- Kiểm tra logs trong console để xem thông báo lỗi chi tiết
+1. **Lỗi kết nối database**
 
----
+   - Kiểm tra MySQL đang chạy
+   - Kiểm tra thông tin kết nối trong application.properties
 
-## Về tác giả
+2. **Lỗi port 8080 đã được sử dụng**
 
-Facebook "Trần Phú" : https://www.facebook.com/phu.tran.244255
+   - Thay đổi port trong application.properties:
+     ```properties
+     server.port=8081
+     ```
 
-# Laptop Shop Spring Boot Project
+3. **Không thể đăng nhập admin**
+   - Kiểm tra role_id trong bảng users có đúng là 1 không
+   - Kiểm tra bảng roles có role ADMIN không
+   - Thử xóa và tạo lại tài khoản admin
 
-## Prerequisites
+### Liên hệ
 
-- Java 17 or higher
-- Maven 3.6 or higher
-- MySQL 8.0 or higher
-- IDE (IntelliJ IDEA, Eclipse, or VS Code)
-
-## Setup Instructions
-
-1. **Clone the repository**
-
-```bash
-git clone <repository-url>
-cd laptopshop
-```
-
-2. **Database Setup**
-
-- Create a new MySQL database
-- Update database configuration in `src/main/resources/application.properties`:
-  - Copy `application.properties.template` to `application.properties`
-  - Update database name, username, and password
-
-3. **Build and Run**
-
-```bash
-# Build the project
-mvn clean install
-
-# Run the application
-mvn spring-boot:run
-```
-
-4. **Access the Application**
-
-- Open your browser and navigate to `http://localhost:8080`
-
-## Project Structure
-
-```
-src/main/java/vn/tranphudev/laptopshop/
-├── controller/     # Controller classes
-├── domain/        # Entity classes
-├── repository/    # Repository interfaces
-├── service/       # Service classes
-└── config/        # Configuration classes
-```
-
-## Features
-
-- User authentication and authorization
-- Product management
-- Shopping cart functionality
-- Order processing
-- Payment integration
-- Admin dashboard
-
-## Configuration Files
-
-- `application.properties`: Main configuration file
-- `application-dev.properties`: Development environment configuration
-- `application-prod.properties`: Production environment configuration
-
-## Important Notes
-
-- Make sure to update sensitive information in configuration files
-- Create necessary directories for file uploads
-- Set up proper email configuration if using email features
-
-## Troubleshooting
-
-If you encounter any issues:
-
-1. Check database connection settings
-2. Verify Java and Maven versions
-3. Ensure all required directories exist
-4. Check application logs in `logs/application.log`
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+- Email: tranphudev3110@gmail.com
+- Facebook: [Trần Phú](https://www.facebook.com/phu.tran.244255)

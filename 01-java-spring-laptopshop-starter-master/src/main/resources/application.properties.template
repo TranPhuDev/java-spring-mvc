@@ -1,22 +1,17 @@
 # Database Configuration
-spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/your_database_name
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-
-# JPA Configuration
 spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/laptopshop
+spring.datasource.username=root
+spring.datasource.password=123456
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
-# Server Configuration
-server.port=8080
+# Logging Configuration
+logging.level.org.springframework.security=DEBUG
 
 # File Upload Configuration
 spring.servlet.multipart.max-file-size=50MB
 spring.servlet.multipart.max-request-size=50MB
-upload.path=uploads/
 
 # Session Configuration
 spring.session.store-type=jdbc
@@ -24,23 +19,22 @@ spring.session.timeout=30m
 spring.session.jdbc.initialize-schema=always
 
 # VNPay Configuration
-phudev.vnpay.tmn-code=your_tmn_code
-phudev.vnpay.hash-secret=your_hash_secret
+# Đăng ký tài khoản tại: https://sandbox.vnpayment.vn/
+# Sau khi đăng ký, lấy thông tin từ tài khoản của bạn
+phudev.vnpay.tmn-code=DBSH7G08
+phudev.vnpay.hash-secret=3PQETYU44CGPCGFQCOQ8GJF9BGRW1DDP
 phudev.vnpay.vnp-url=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
 phudev.vnpay.vnp-return-url=http://localhost:8080/thanks
 
-# Logging Configuration
-logging.level.root=INFO
-logging.level.vn.tranphudev.laptopshop=DEBUG
-logging.file.name=logs/application.log
+# Google OAuth2 Configuration
+# Đã cấu hình sẵn với tài khoản Google Cloud
+spring.security.oauth2.client.registration.google.client-id=17325131093-09vq90v3kkppsj8uqdorfr5j1lg5kfa4.apps.googleusercontent.com
+spring.security.oauth2.client.registration.google.client-secret=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
+spring.security.oauth2.client.registration.google.scope=email,profile
 
-# Email Configuration (if using email service)
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=your_email@gmail.com
-spring.mail.password=your_app_password
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-
-# Security Logging
-logging.level.org.springframework.security=DEBUG
+# Hướng dẫn sử dụng:
+# 1. Copy file này và đổi tên thành application.properties
+# 2. Cấu hình đã được thiết lập sẵn cho:
+#    - VNPay Sandbox
+#    - Google OAuth2
+# 3. Chỉ cần cập nhật thông tin database nếu cần
