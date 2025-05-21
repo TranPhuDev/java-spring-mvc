@@ -31,8 +31,13 @@
 
    - Tạo database MySQL mới với tên `laptopshop`
    - Copy file `application.properties.template` thành `application.properties`
-   - Cấu hình đã được thiết lập sẵn cho VNPay và Google OAuth2
-   - Chỉ cần cập nhật thông tin database nếu cần
+   - Cấu hình thông tin database trong `application.properties`:
+     ```properties
+     spring.datasource.url=jdbc:mysql://localhost:3306/laptopshop
+     spring.datasource.username=your_username
+     spring.datasource.password=your_password
+     ```
+   - Các cấu hình khác đã được thiết lập sẵn cho VNPay và Google OAuth2
 
 3. **Build và chạy dự án**
 
@@ -57,9 +62,6 @@
 
    ```
 
-
-
-
 5. **Truy cập ứng dụng**
    - Website: http://localhost:8080
    - Admin Panel: http://localhost:8080/admin
@@ -78,12 +80,12 @@ src/
 ### Tính năng đã được cấu hình sẵn
 
 - ✅ Đăng nhập/Đăng ký với Google OAuth2
-- ✅ Thanh toán qua VNPay Sandbox (Thẻ nội địa và tài khoản ngân hàng -> NCB -> 
-      Số thẻ: 9704198526191432198
-      Tên chủ thẻ	: NGUYEN VAN A
-      Ngày phát hành	: 07/15
-      Mật khẩu OTP : 123456 
- ) 
+- ✅ Thanh toán qua VNPay Sandbox (Thẻ nội địa và tài khoản ngân hàng -> NCB ->
+  Số thẻ: 9704198526191432198
+  Tên chủ thẻ : NGUYEN VAN A
+  Ngày phát hành : 07/15
+  Mật khẩu OTP : 123456
+  )
 - ✅ Quản lý sản phẩm
 - ✅ Giỏ hàng
 - ✅ Quản lý đơn hàng
@@ -104,6 +106,8 @@ Sau khi đăng nhập với tài khoản admin, bạn có thể truy cập các 
 
    - Kiểm tra MySQL đang chạy
    - Kiểm tra thông tin kết nối trong application.properties
+   - Đảm bảo database `laptopshop` đã được tạo
+   - Kiểm tra username và password có chính xác không
 
 2. **Lỗi port 8080 đã được sử dụng**
 
