@@ -19,8 +19,6 @@ spring.session.timeout=30m
 spring.session.jdbc.initialize-schema=always
 
 # VNPay Configuration
-# Đăng ký tài khoản tại: https://sandbox.vnpayment.vn/
-# Sau khi đăng ký, lấy thông tin từ tài khoản của bạn
 phudev.vnpay.tmn-code=DBSH7G08
 phudev.vnpay.hash-secret=3PQETYU44CGPCGFQCOQ8GJF9BGRW1DDP
 phudev.vnpay.vnp-url=https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
