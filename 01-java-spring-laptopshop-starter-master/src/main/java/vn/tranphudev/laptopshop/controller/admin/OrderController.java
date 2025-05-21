@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.tranphudev.laptopshop.domain.Order;
+import vn.tranphudev.laptopshop.domain.Order_;
 import vn.tranphudev.laptopshop.service.OrderService;
 
 @Controller
@@ -38,7 +40,7 @@ public class OrderController {
             // If page number is invalid, default to page 1
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 5); // Show 5 orders per page
+        Pageable pageable = PageRequest.of(page - 1, 10, Sort.by(Order_.ID).descending()); // Show 5 orders per page
         Page<Order> orders = this.orderService.fetchAllOrders(pageable);
         List<Order> listOrders = orders.getContent();
 

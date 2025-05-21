@@ -123,60 +123,74 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <c:forEach items="${product}" var="product">
-                                                            <tr>
-                                                                <td class="text-center">
-                                                                    <img src="/images/product/${product.image}"
-                                                                        alt="${product.name}" class="product-image">
-                                                                </td>
-                                                                <td>
-                                                                    <div class="fw-bold">${product.name}</div>
-                                                                    <small class="text-muted">ID: ${product.id}</small>
-                                                                </td>
-                                                                <td>
-                                                                    <fmt:formatNumber type="number"
-                                                                        value="${product.price}" /> đ
-                                                                </td>
-                                                                <td>${product.quantity}</td>
-                                                                <td>${product.sold}</td>
-                                                                <td>
-                                                                    <c:choose>
-                                                                        <c:when test="${product.quantity > 10}">
-                                                                            <span
-                                                                                class="status-badge status-in-stock">In
-                                                                                Stock</span>
-                                                                        </c:when>
-                                                                        <c:when test="${product.quantity > 0}">
-                                                                            <span
-                                                                                class="status-badge status-low-stock">Low
-                                                                                Stock</span>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            <span
-                                                                                class="status-badge status-out-of-stock">Out
-                                                                                of Stock</span>
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </td>
-                                                                <td class="action-buttons">
-                                                                    <a href="/admin/product/${product.id}"
-                                                                        class="btn btn-info btn-sm"
-                                                                        title="View Details">
-                                                                        <i class="fas fa-eye"></i>
-                                                                    </a>
-                                                                    <a href="/admin/product/update/${product.id}"
-                                                                        class="btn btn-warning btn-sm"
-                                                                        title="Edit Product">
-                                                                        <i class="fas fa-edit"></i>
-                                                                    </a>
-                                                                    <a href="/admin/product/delete/${product.id}"
-                                                                        class="btn btn-danger btn-sm"
-                                                                        title="Delete Product">
-                                                                        <i class="fas fa-trash"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        </c:forEach>
+                                                        <c:choose>
+                                                            <c:when test="${empty product}">
+                                                                <tr>
+                                                                    <td colspan="7" class="text-center py-4">
+                                                                        <div class="text-muted">
+                                                                            <i class="fas fa-box-open me-2"></i>
+                                                                            Không có dữ liệu sản phẩm
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <c:forEach items="${product}" var="product">
+                                                                    <tr>
+                                                                        <td class="text-center">
+                                                                            <img src="/images/product/${product.image}"
+                                                                                alt="${product.name}" class="product-image">
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="fw-bold">${product.name}</div>
+                                                                            <small class="text-muted">ID: ${product.id}</small>
+                                                                        </td>
+                                                                        <td>
+                                                                            <fmt:formatNumber type="number"
+                                                                                value="${product.price}" /> đ
+                                                                        </td>
+                                                                        <td>${product.quantity}</td>
+                                                                        <td>${product.sold}</td>
+                                                                        <td>
+                                                                            <c:choose>
+                                                                                <c:when test="${product.quantity > 10}">
+                                                                                    <span
+                                                                                        class="status-badge status-in-stock">In
+                                                                                        Stock</span>
+                                                                                </c:when>
+                                                                                <c:when test="${product.quantity > 0}">
+                                                                                    <span
+                                                                                        class="status-badge status-low-stock">Low
+                                                                                        Stock</span>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <span
+                                                                                        class="status-badge status-out-of-stock">Out
+                                                                                        of Stock</span>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                        </td>
+                                                                        <td class="action-buttons">
+                                                                            <a href="/admin/product/${product.id}"
+                                                                                class="btn btn-info btn-sm"
+                                                                                title="View Details">
+                                                                                <i class="fas fa-eye"></i>
+                                                                            </a>
+                                                                            <a href="/admin/product/update/${product.id}"
+                                                                                class="btn btn-warning btn-sm"
+                                                                                title="Edit Product">
+                                                                                <i class="fas fa-edit"></i>
+                                                                            </a>
+                                                                            <a href="/admin/product/delete/${product.id}"
+                                                                                class="btn btn-danger btn-sm"
+                                                                                title="Delete Product">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </tbody>
                                                 </table>
                                             </div>

@@ -95,48 +95,68 @@
                                 <th>Total Price</th>
                                 <th>User</th>
                                 <th>Status</th>
+                                <th>Payment</th>
                                 <th class="text-center">Actions</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <c:forEach var="order" items="${orders}">
-                                <tr>
-                                  <td class="fw-bold">#${order.id}</td>
-                                  <td>
-                                    <span class="fw-semibold">
-                                      <fmt:formatNumber type="number" value="${order.totalPrice}" />
-                                      đ
-                                    </span>
-                                  </td>
-                                  <td>
-                                    <div class="d-flex align-items-center">
-                                      <i class="fas fa-user-circle me-2 text-primary"></i>
-                                      ${order.user.fullName}
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <span class="status-badge status-${order.status.toLowerCase()}">
-                                      ${order.status}
-                                    </span>
-                                  </td>
-                                  <td>
-                                    <div class="d-flex justify-content-center gap-2">
-                                      <a href="/admin/order/${order.id}"
-                                        class="btn btn-sm btn-outline-primary action-btn">
-                                        <i class="fas fa-eye me-1"></i> View
-                                      </a>
-                                      <a href="/admin/order/update/${order.id}"
-                                        class="btn btn-sm btn-outline-warning action-btn">
-                                        <i class="fas fa-edit me-1"></i> Edit
-                                      </a>
-                                      <a href="/admin/order/delete/${order.id}"
-                                        class="btn btn-sm btn-outline-danger action-btn">
-                                        <i class="fas fa-trash me-1"></i> Delete
-                                      </a>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </c:forEach>
+                              <c:choose>
+                                <c:when test="${empty orders}">
+                                  <tr>
+                                    <td colspan="5" class="text-center py-4">
+                                      <div class="text-muted">
+                                        <i class="fas fa-shopping-cart me-2"></i>
+                                        Không có dữ liệu đơn hàng
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </c:when>
+                                <c:otherwise>
+                                  <c:forEach var="order" items="${orders}">
+                                    <tr>
+                                      <td class="fw-bold">#${order.id}</td>
+                                      <td>
+                                        <span class="fw-semibold">
+                                          <fmt:formatNumber type="number" value="${order.totalPrice}" />
+                                          đ
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <div class="d-flex align-items-center">
+                                          <i class="fas fa-user-circle me-2 text-primary"></i>
+                                          ${order.user.fullName}
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <span class="status-badge status-${order.status.toLowerCase()}">
+                                          ${order.status}
+                                        </span>
+                                      </td>
+                                      <td>
+                                        <div class="">Status: ${order.paymentStatus}</div>
+                                        <div class="">Ref: ${order.paymentRef}</div>
+                                        <div class="">Method: ${order.paymentMethod}</div>
+                                      </td>
+                                      <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                          <a href="/admin/order/${order.id}"
+                                            class="btn btn-sm btn-outline-primary action-btn">
+                                            <i class="fas fa-eye me-1"></i> View
+                                          </a>
+                                          <a href="/admin/order/update/${order.id}"
+                                            class="btn btn-sm btn-outline-warning action-btn">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                          </a>
+                                          <a href="/admin/order/delete/${order.id}"
+                                            class="btn btn-sm btn-outline-danger action-btn">
+                                            <i class="fas fa-trash me-1"></i> Delete
+                                          </a>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </c:forEach>
+                                </c:otherwise>
+                              </c:choose>
                             </tbody>
                           </table>
                         </div>

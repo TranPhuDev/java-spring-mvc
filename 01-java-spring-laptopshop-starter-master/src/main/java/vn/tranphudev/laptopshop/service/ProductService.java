@@ -2,11 +2,13 @@ package vn.tranphudev.laptopshop.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.servlet.http.HttpSession;
 import vn.tranphudev.laptopshop.domain.Cart;
@@ -84,7 +86,7 @@ public class ProductService {
             // Set the appropriate min and max based on the price range string
             switch (p) {
                 case "duoi-10-trieu":
-                    min = 0;
+                    min = 1;
                     max = 10000000;
                     break;
                 case "10-15-trieu":
@@ -216,15 +218,17 @@ public class ProductService {
         }
     }
 
-    // order
-    public void handleOlaceOrder(User user, HttpSession session, String receiverName, String receiverAddress,
-            String receiverPhone) {
-        // create order
+    public void handlePlaceOrder(
+            User user, HttpSession session,
+            String receiverName, String receiverAddress, String receiverPhone, String paymentMethod, String uuid) {
+
+        // step 1: get cart by user
         Cart cart = this.cartRepository.findByUser(user);
         if (cart != null) {
             List<CartDetail> cartDetails = cart.getCartDetails();
 
             if (cartDetails != null) {
+
                 // create order
                 Order order = new Order();
                 order.setUser(user);
@@ -232,15 +236,20 @@ public class ProductService {
                 order.setReceiverAddress(receiverAddress);
                 order.setReceiverPhone(receiverPhone);
                 order.setStatus("PENDING");
-                double sum = 0;
-                for (CartDetail cartDetail : cartDetails) {
-                    sum += cartDetail.getPrice() * cartDetail.getQuantity();
-                }
 
+                order.setPaymentMethod(paymentMethod);
+                order.setPaymentStatus("PAYMENT_UNPAID");
+                order.setPaymentRef(paymentMethod.equals("COD") ? "UNKNOWN" : uuid);
+
+                double sum = 0;
+                for (CartDetail cd : cartDetails) {
+                    sum += cd.getPrice();
+                }
                 order.setTotalPrice(sum);
                 order = this.orderRepository.save(order);
 
-                // Create order detail
+                // create orderDetail
+
                 for (CartDetail cd : cartDetails) {
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
@@ -251,17 +260,26 @@ public class ProductService {
                     this.orderDetailRepository.save(orderDetail);
                 }
 
-                // Delete all cart details
+                // step 2: delete cart_detail and cart
                 for (CartDetail cd : cartDetails) {
                     this.cartDetailRepository.deleteById(cd.getId());
                 }
 
-                // Delete the cart itself
                 this.cartRepository.deleteById(cart.getId());
 
-                // Update session
+                // step 3 : update session
                 session.setAttribute("sum", 0);
             }
+        }
+    }
+
+    public void updatePaymentStatus(String paymentRef, String paymentStatus) {
+        Optional<Order> orderOptional = this.orderRepository.findByPaymentRef(paymentRef);
+        if (orderOptional.isPresent()) {
+            // update
+            Order order = orderOptional.get();
+            order.setPaymentStatus(paymentStatus);
+            this.orderRepository.save(order);
         }
     }
 }

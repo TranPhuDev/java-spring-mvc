@@ -110,38 +110,52 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <c:forEach var="user" items="${user1}">
-                            <tr>
-                              <td class="text-center">
-                                <img src="/images/avatar/${user.avatar}" alt="${user.fullName}" class="user-avatar"
-                                  onerror="this.src='/images/avatar/default.jpg'">
-                              </td>
-                              <td>${user.id}</td>
-                              <td>
-                                <div class="fw-bold">${user.email}</div>
-                                <small class="text-muted">User ID: ${user.id}</small>
-                              </td>
-                              <td>${user.fullName}</td>
-                              <td>
-                                <span class="role-badge ${user.role.name == 'ADMIN' ? 'role-admin' : 'role-user'}">
-                                  ${user.role.name}
-                                </span>
-                              </td>
-                              <td class="action-buttons">
-                                <a href="/admin/user/${user.id}" class="btn btn-info btn-sm" title="View Details">
-                                  <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="/admin/user/update/${user.id}" class="btn btn-warning btn-sm"
-                                  title="Edit User">
-                                  <i class="fas fa-edit"></i>
-                                </a>
-                                <a href="/admin/user/delete/${user.id}" class="btn btn-danger btn-sm"
-                                  title="Delete User">
-                                  <i class="fas fa-trash"></i>
-                                </a>
-                              </td>
-                            </tr>
-                          </c:forEach>
+                          <c:choose>
+                            <c:when test="${empty user1}">
+                              <tr>
+                                <td colspan="6" class="text-center py-4">
+                                  <div class="text-muted">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Không có dữ liệu người dùng
+                                  </div>
+                                </td>
+                              </tr>
+                            </c:when>
+                            <c:otherwise>
+                              <c:forEach var="user" items="${user1}">
+                                <tr>
+                                  <td class="text-center">
+                                    <img src="/images/avatar/${user.avatar}" alt="${user.fullName}" class="user-avatar"
+                                      onerror="this.src='/images/avatar/default.jpg'">
+                                  </td>
+                                  <td>${user.id}</td>
+                                  <td>
+                                    <div class="fw-bold">${user.email}</div>
+                                    <small class="text-muted">User ID: ${user.id}</small>
+                                  </td>
+                                  <td>${user.fullName}</td>
+                                  <td>
+                                    <span class="role-badge ${user.role.name == 'ADMIN' ? 'role-admin' : 'role-user'}">
+                                      ${user.role.name}
+                                    </span>
+                                  </td>
+                                  <td class="action-buttons">
+                                    <a href="/admin/user/${user.id}" class="btn btn-info btn-sm" title="View Details">
+                                      <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="/admin/user/update/${user.id}" class="btn btn-warning btn-sm"
+                                      title="Edit User">
+                                      <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="/admin/user/delete/${user.id}" class="btn btn-danger btn-sm"
+                                      title="Delete User">
+                                      <i class="fas fa-trash"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                              </c:forEach>
+                            </c:otherwise>
+                          </c:choose>
                         </tbody>
                       </table>
                     </div>

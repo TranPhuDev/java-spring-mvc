@@ -1,6 +1,6 @@
 package vn.tranphudev.laptopshop.domain;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -14,7 +14,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -29,7 +31,35 @@ public class Order {
 
     private String status;
 
-    private LocalDateTime createdAt;
+    private String paymentRef;
+
+    private String paymentStatus;
+
+    private String paymentMethod;
+
+    public String getPaymentRef() {
+        return paymentRef;
+    }
+
+    public void setPaymentRef(String paymentRef) {
+        this.paymentRef = paymentRef;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
 
     // user id
     @ManyToOne
@@ -37,7 +67,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order")
-    List<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
     public long getId() {
         return id;
@@ -101,14 +131,6 @@ public class Order {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
     @Override
