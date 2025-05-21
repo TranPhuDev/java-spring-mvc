@@ -3,6 +3,9 @@ package vn.tranphudev.laptopshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -11,12 +14,15 @@ import vn.tranphudev.laptopshop.domain.CartDetail;
 import vn.tranphudev.laptopshop.domain.Order;
 import vn.tranphudev.laptopshop.domain.OrderDetail;
 import vn.tranphudev.laptopshop.domain.Product;
+import vn.tranphudev.laptopshop.domain.Product_;
 import vn.tranphudev.laptopshop.domain.User;
+import vn.tranphudev.laptopshop.domain.DTO.ProductCriteriaDTO;
 import vn.tranphudev.laptopshop.repository.CartDetailRepository;
 import vn.tranphudev.laptopshop.repository.CartRepository;
 import vn.tranphudev.laptopshop.repository.OrderDetailRepository;
 import vn.tranphudev.laptopshop.repository.OrderRepository;
 import vn.tranphudev.laptopshop.repository.ProductRepsitory;
+import vn.tranphudev.laptopshop.service.specification.ProductSpec;
 
 @Service
 public class ProductService {
@@ -38,8 +44,70 @@ public class ProductService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Product> getAllProduct() {
-        return this.productRepsitory.findAll();
+    public Page<Product> getAllProduct(Pageable page) {
+        return this.productRepsitory.findAll(page);
+    }
+
+    // search by name
+    public Page<Product> getAllProductWithSpec(Pageable page, ProductCriteriaDTO productCriteriaDTO) {
+        if (productCriteriaDTO.getTarget() == null
+                && productCriteriaDTO.getFactory() == null
+                && productCriteriaDTO.getPrice() == null) {
+            return this.productRepsitory.findAll(page);
+        }
+
+        Specification<Product> combinedSpec = Specification.where(null);
+
+        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+            Specification<Product> currentSpecs = ProductSpec.matchListTarget(productCriteriaDTO.getTarget().get());
+            combinedSpec = combinedSpec.and(currentSpecs);
+        }
+        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+            Specification<Product> currentSpecs = ProductSpec.matchListFactory(productCriteriaDTO.getFactory().get());
+            combinedSpec = combinedSpec.and(currentSpecs);
+        }
+
+        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent()) {
+            Specification<Product> currentSpecs = this.buildPriceSpecification(productCriteriaDTO.getPrice().get());
+            combinedSpec = combinedSpec.and(currentSpecs);
+        }
+        return this.productRepsitory.findAll(combinedSpec, page);
+    }
+
+    // case 6
+    public Specification<Product> buildPriceSpecification(List<String> price) {
+        Specification<Product> combinedSpec = Specification.where(null);
+        for (String p : price) {
+            double min = 0;
+            double max = 0;
+
+            // Set the appropriate min and max based on the price range string
+            switch (p) {
+                case "duoi-10-trieu":
+                    min = 0;
+                    max = 10000000;
+                    break;
+                case "10-15-trieu":
+                    min = 10000000;
+                    max = 15000000;
+                    break;
+                case "15-20-trieu":
+                    min = 15000000;
+                    max = 20000000;
+                    break;
+                case "tren-20-trieu":
+                    min = 20000000;
+                    max = 200000000;
+                    break;
+            }
+
+            if (min != 0 && max != 0) {
+                Specification<Product> rangeSpec = ProductSpec.matchMultiplePrice(min, max);
+                combinedSpec = combinedSpec.or(rangeSpec);
+            }
+        }
+
+        return combinedSpec;
     }
 
     // save product

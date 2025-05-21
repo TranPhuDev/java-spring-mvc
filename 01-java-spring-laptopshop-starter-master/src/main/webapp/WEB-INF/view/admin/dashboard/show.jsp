@@ -11,9 +11,9 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
-    <meta name="author" content="Hỏi Dân IT" />
-    <title>Dashboard - Hỏi Dân IT</title>
+    <meta name="description" content="Phu Dev - Dự án laptopshop" />
+    <meta name="author" content="Phu Dev" />
+    <title>Dashboard</title>
     <link
       href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css"
       rel="stylesheet"
@@ -34,42 +34,52 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
         transition: transform 0.3s ease;
         overflow: hidden;
       }
+
       .stat-card:hover {
         transform: translateY(-5px);
       }
+
       .stat-icon {
         font-size: 2.5rem;
         opacity: 0.8;
       }
+
       .stat-value {
         font-size: 2rem;
         font-weight: 600;
       }
+
       .stat-label {
         font-size: 1rem;
         opacity: 0.8;
       }
+
       .system-info-card {
         border: none;
         border-radius: 15px;
         background: #fff;
         box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
       }
+
       .info-item {
         padding: 1rem;
         border-bottom: 1px solid #f0f0f0;
       }
+
       .info-item:last-child {
         border-bottom: none;
       }
+
       .info-label {
         color: #6c757d;
         font-size: 0.875rem;
       }
+
       .info-value {
         color: #2c3e50;
         font-weight: 500;
       }
+
       .chart-container {
         background: #fff;
         border-radius: 15px;
@@ -317,20 +327,21 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script>
-      // Sales Chart
-      const ctx = document.getElementById("salesChart").getContext("2d");
-      new Chart(ctx, {
-        type: "line",
+      // Initialize Sales Overview Chart
+      const salesCtx = document.getElementById("salesChart").getContext("2d");
+      const salesChart = new Chart(salesCtx, {
+        type: "bar",
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
           datasets: [
             {
-              label: "Sales",
-              data: [12000, 19000, 15000, 25000, 22000, 30000],
-              borderColor: "#3498db",
-              tension: 0.4,
-              fill: true,
-              backgroundColor: "rgba(52, 152, 219, 0.1)",
+              label: "Monthly Sales",
+              data: [
+                12000000, 19000000, 15000000, 25000000, 22000000, 30000000,
+              ],
+              backgroundColor: "rgba(75, 192, 192, 0.6)",
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 1,
             },
           ],
         },
@@ -338,20 +349,41 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           responsive: true,
           plugins: {
             legend: {
-              display: false,
+              position: "top",
+            },
+            title: {
+              display: true,
+              text: "Monthly Sales Overview",
+            },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  let label = context.dataset.label || "";
+                  if (label) {
+                    label += ": ";
+                  }
+                  if (context.parsed.y !== null) {
+                    label += new Intl.NumberFormat("vi-VN", {
+                      style: "currency",
+                      currency: "VND",
+                    }).format(context.parsed.y);
+                  }
+                  return label;
+                },
+              },
             },
           },
           scales: {
             y: {
               beginAtZero: true,
-              grid: {
-                display: true,
-                drawBorder: false,
-              },
-            },
-            x: {
-              grid: {
-                display: false,
+              ticks: {
+                callback: function (value) {
+                  return new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                    maximumFractionDigits: 0,
+                  }).format(value);
+                },
               },
             },
           },

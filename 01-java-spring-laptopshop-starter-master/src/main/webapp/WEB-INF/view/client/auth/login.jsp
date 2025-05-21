@@ -281,14 +281,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </c:if> -->
                 <h1>Sign in</h1>
                 <div class="social-container">
-                  <a href="#" class="social"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
+                  <a href="#" class="social"><i class="fab fa-github"></i></a>
                   <a href="#" class="social"
                     ><i class="fab fa-google-plus-g"></i
-                  ></a>
-                  <a href="#" class="social"
-                    ><i class="fab fa-linkedin-in"></i
                   ></a>
                 </div>
                 <span>or use your account</span>
@@ -315,22 +310,16 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     value="${_csrf.token}"
                   />
                 </div>
-                <a href="#">Forgot your password?</a>
-                <button type="submit">Sign In</button>
+                <button class="mt-4" type="submit">Sign In</button>
               </form>
             </div>
             <div class="form-container sign-up-container">
               <form action="/register" method="post">
                 <h1>Create Account</h1>
                 <div class="social-container">
-                  <a href="#" class="social"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
+                  <a href="#" class="social"><i class="fab fa-github"></i></a>
                   <a href="#" class="social"
                     ><i class="fab fa-google-plus-g"></i
-                  ></a>
-                  <a href="#" class="social"
-                    ><i class="fab fa-linkedin-in"></i
                   ></a>
                 </div>
                 <span>or use your email for registration</span>

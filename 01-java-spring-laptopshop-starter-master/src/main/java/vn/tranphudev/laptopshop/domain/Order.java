@@ -1,5 +1,6 @@
 package vn.tranphudev.laptopshop.domain;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -27,6 +28,8 @@ public class Order {
     private String receiverPhone;
 
     private String status;
+
+    private LocalDateTime createdAt;
 
     // user id
     @ManyToOne
@@ -98,6 +101,14 @@ public class Order {
 
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

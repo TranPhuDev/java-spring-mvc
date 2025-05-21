@@ -86,8 +86,7 @@
                                 <div class="col-lg-8 text-end">
                                     <ul class="nav nav-pills d-inline-flex text-center mb-5">
                                         <li class="nav-item">
-                                            <a class="d-flex m-2 py-2 bg-light rounded-pill active"
-                                                data-bs-toggle="pill" href="#tab-1">
+                                            <a class="d-flex m-2 py-2 bg-light rounded-pill active" href="/products">
                                                 <span class="text-dark" style="width: 130px;">All Products</span>
                                             </a>
                                         </li>
@@ -115,7 +114,7 @@
                                                                 </h4>
                                                                 <p style="font-size: 13px;">${product.shortDesc}</p>
                                                                 <div
-                                                                    class="d-flex justify-content-center  flex-lg-wrap">
+                                                                    class="d-flex justify-content-center  flex-lg-wrap flex-column">
                                                                     <p style="font-size: 15px; text-align: center; width: 100%;"
                                                                         class="text-dark fs-5 fw-bold mb-3">
                                                                         <fmt:formatNumber type="number"
@@ -150,7 +149,58 @@
                 </div>
                 <!-- Fruits Shop End-->
 
-
+                <!-- Products End -->
+                <div class="container-fluid py-5">
+                    <div class="container">
+                        <div class="d-flex justify-content-center">
+                            <nav aria-label="Page navigation" style="white-space: nowrap;">
+                                <ul class="pagination" style="display: inline-flex; flex-wrap: nowrap;">
+                                    <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                                        <c:choose>
+                                            <c:when test="${currentPage == 1}">
+                                                <span class="page-link" aria-label="Previous"
+                                                    style="padding: 0.5rem 0.75rem; font-size: 0.95rem;">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="page-link" href="/?page=${currentPage - 1}"
+                                                    aria-label="Previous"
+                                                    style="padding: 0.5rem 0.75rem; font-size: 0.95rem;">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                    <c:forEach begin="1" end="${totalPages}" varStatus="loop">
+                                        <li class="page-item">
+                                            <a class="page-link ${loop.index eq currentPage ? 'active' : ''}"
+                                                href="/?page=${loop.index}"
+                                                style="padding: 0.5rem 0.75rem; font-size: 0.95rem;">${loop.index}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                                        <c:choose>
+                                            <c:when test="${currentPage == totalPages}">
+                                                <span class="page-link" aria-label="Next"
+                                                    style="padding: 0.5rem 0.75rem; font-size: 0.95rem;">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a class="page-link" href="/?page=${currentPage + 1}" aria-label="Next"
+                                                    style="padding: 0.5rem 0.75rem; font-size: 0.95rem;">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Products End -->
 
                 <jsp:include page="../layout/feature.jsp" />
                 <!-- Tastimonial Start -->

@@ -147,6 +147,48 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- Pagination -->
+                <div class="d-flex justify-content-center mt-4">
+                  <nav aria-label="Page navigation" style="white-space: nowrap;">
+                    <ul class="pagination" style="display: inline-flex; flex-wrap: nowrap;">
+                      <li class="page-item ${currentPage == 1 ? 'disabled' : ''}">
+                        <c:choose>
+                          <c:when test="${currentPage == 1}">
+                            <span class="page-link" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </span>
+                          </c:when>
+                          <c:otherwise>
+                            <a class="page-link" href="/admin/user?page=${currentPage - 1}" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </c:otherwise>
+                        </c:choose>
+                      </li>
+                      <c:forEach begin="1" end="${totalPages}" varStatus="loop">
+                        <li class="page-item">
+                          <a class="page-link ${loop.index eq currentPage ? 'active' : ''}"
+                            href="/admin/user?page=${loop.index}">${loop.index}</a>
+                        </li>
+                      </c:forEach>
+                      <li class="page-item ${currentPage == totalPages ? 'disabled' : ''}">
+                        <c:choose>
+                          <c:when test="${currentPage == totalPages}">
+                            <span class="page-link" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </span>
+                          </c:when>
+                          <c:otherwise>
+                            <a class="page-link" href="/admin/user?page=${currentPage + 1}" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </c:otherwise>
+                        </c:choose>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
               </div>
             </main>
             <jsp:include page="../layout/footer.jsp" />

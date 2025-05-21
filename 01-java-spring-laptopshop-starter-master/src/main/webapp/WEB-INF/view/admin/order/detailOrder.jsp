@@ -10,28 +10,33 @@
                     <meta charset="utf-8" />
                     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                    <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
-                    <meta name="author" content="Hỏi Dân IT" />
+                    <meta name="description" content="Phu Dev - Dự án laptopshop" />
+                    <meta name="author" content="Phu Dev" />
                     <title>Order Details</title>
                     <link href="/css/styles.css" rel="stylesheet" />
-                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-                    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+                        rel="stylesheet">
+                    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                        rel="stylesheet">
                     <style>
                         .product-image {
                             width: 80px;
                             height: 80px;
                             object-fit: cover;
                             border-radius: 8px;
-                            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                         }
+
                         .product-name {
                             color: #2c3e50;
                             text-decoration: none;
                             font-weight: 500;
                         }
+
                         .product-name:hover {
                             color: #3498db;
                         }
+
                         .quantity-input {
                             width: 80px;
                             text-align: center;
@@ -39,9 +44,11 @@
                             border-radius: 6px;
                             padding: 0.375rem;
                         }
+
                         .back-btn {
                             transition: all 0.3s;
                         }
+
                         .back-btn:hover {
                             transform: translateX(-5px);
                         }
@@ -59,8 +66,10 @@
                                         <h1 class="h3 mb-0 text-gray-800">Order Details</h1>
                                         <div class="breadcrumb mb-0">
                                             <ol class="breadcrumb mb-0">
-                                                <li class="breadcrumb-item"><a href="/admin" class="text-decoration-none">Dashboard</a></li>
-                                                <li class="breadcrumb-item"><a href="/admin/order" class="text-decoration-none">Orders</a></li>
+                                                <li class="breadcrumb-item"><a href="/admin"
+                                                        class="text-decoration-none">Dashboard</a></li>
+                                                <li class="breadcrumb-item"><a href="/admin/order"
+                                                        class="text-decoration-none">Orders</a></li>
                                                 <li class="breadcrumb-item active">Details</li>
                                             </ol>
                                         </div>
@@ -92,8 +101,10 @@
                                                                     <tr>
                                                                         <td colspan="5" class="text-center py-4">
                                                                             <div class="text-muted">
-                                                                                <i class="fas fa-shopping-cart fa-2x mb-3"></i>
-                                                                                <p class="mb-0">No products in this order</p>
+                                                                                <i
+                                                                                    class="fas fa-shopping-cart fa-2x mb-3"></i>
+                                                                                <p class="mb-0">No products in this
+                                                                                    order</p>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -107,14 +118,14 @@
                                                                         </td>
                                                                         <td>
                                                                             <a href="/product/${orderDetail.product.id}"
-                                                                                class="product-name"
-                                                                                target="_blank">
+                                                                                class="product-name" target="_blank">
                                                                                 ${orderDetail.product.name}
                                                                             </a>
                                                                         </td>
                                                                         <td>
                                                                             <span class="fw-semibold">
-                                                                                <fmt:formatNumber type="number" value="${orderDetail.price}" /> đ
+                                                                                <fmt:formatNumber type="number"
+                                                                                    value="${orderDetail.price}" /> đ
                                                                             </span>
                                                                         </td>
                                                                         <td>
@@ -124,7 +135,9 @@
                                                                         </td>
                                                                         <td>
                                                                             <span class="fw-bold text-primary">
-                                                                                <fmt:formatNumber type="number" value="${orderDetail.price * orderDetail.quantity}" /> đ
+                                                                                <fmt:formatNumber type="number"
+                                                                                    value="${orderDetail.price * orderDetail.quantity}" />
+                                                                                đ
                                                                             </span>
                                                                         </td>
                                                                     </tr>

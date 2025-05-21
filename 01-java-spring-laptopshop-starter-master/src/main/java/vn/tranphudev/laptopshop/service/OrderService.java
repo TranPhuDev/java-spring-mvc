@@ -2,7 +2,14 @@ package vn.tranphudev.laptopshop.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
+import java.time.LocalDateTime;
+import java.time.Month;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import vn.tranphudev.laptopshop.domain.Order;
@@ -23,6 +30,15 @@ public class OrderService {
 
     public List<Order> fetchAllOrders() {
         return this.orderRepository.findAll();
+    }
+
+    public Page<Order> fetchAllOrders(Pageable pageable) {
+        return this.orderRepository.findAll(pageable);
+    }
+
+    public List<Order> getRecentOrders(int limit) {
+        return this.orderRepository.findAll(Sort.by(Sort.Direction.DESC, "id")).subList(0,
+                Math.min(limit, (int) this.orderRepository.count()));
     }
 
     public Optional<Order> fetchOrderById(long id) {
@@ -59,4 +75,13 @@ public class OrderService {
     public List<Order> findByUser(User user) {
         return this.orderRepository.findByUser(user);
     }
+
+    public double calculateTotalRevenue() {
+        List<Order> allOrders = this.orderRepository.findAll();
+        return allOrders.stream()
+                .filter(order -> "COMPLETE".equals(order.getStatus()))
+                .mapToDouble(Order::getTotalPrice)
+                .sum();
+    }
+
 }
