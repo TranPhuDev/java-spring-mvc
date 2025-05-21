@@ -39,6 +39,8 @@
      ```
    - Các cấu hình khác đã được thiết lập sẵn cho VNPay và Google OAuth2
 
+   - Coppy file init.sql dán vào mysql để thực thi câu lệnh 
+
 3. **Build và chạy dự án**
 
    **Cách 1: Chạy trực tiếp**
