@@ -139,11 +139,13 @@
                                                                     <tr>
                                                                         <td class="text-center">
                                                                             <img src="/images/product/${product.image}"
-                                                                                alt="${product.name}" class="product-image">
+                                                                                alt="${product.name}"
+                                                                                class="product-image">
                                                                         </td>
                                                                         <td>
                                                                             <div class="fw-bold">${product.name}</div>
-                                                                            <small class="text-muted">ID: ${product.id}</small>
+                                                                            <small class="text-muted">ID:
+                                                                                ${product.id}</small>
                                                                         </td>
                                                                         <td>
                                                                             <fmt:formatNumber type="number"
@@ -226,7 +228,7 @@
                     </div>
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                         crossorigin="anonymous"></script>
-                    <script src="js/scripts.js"></script>
+                    <script src="/js/scripts.js"></script>
 
 
                 </body>

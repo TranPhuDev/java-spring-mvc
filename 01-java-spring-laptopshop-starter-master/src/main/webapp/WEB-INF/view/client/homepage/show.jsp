@@ -220,24 +220,22 @@
                             <h1 class="display-5 mb-5 text-dark">Our Client Saying!</h1>
                         </div>
                         <div class="owl-carousel testimonial-carousel">
-                            <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                            <div class="testimonial-item img-border-radius bg-light rounded p-4" style="height: 300px;">
                                 <div class="position-relative">
                                     <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                                         style="bottom: 30px; right: 0;"></i>
                                     <div class="mb-4 pb-4 border-bottom border-secondary">
-                                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been
-                                            the
-                                            industry's standard dummy text ever since the 1500s,
+                                        <p class="mb-0">Nhân viên phục vụ rất nhiệt tình, sản phẩm chất lượng cao.
                                         </p>
                                     </div>
                                     <div class="d-flex align-items-center flex-nowrap">
                                         <div class="bg-secondary rounded">
-                                            <img src="/client/img/testimonial-1.jpg" class="img-fluid rounded"
+                                            <img src="/client/img/testimonial-4.jpg" class="img-fluid rounded"
                                                 style="width: 100px; height: 100px;" alt="">
                                         </div>
                                         <div class="ms-4 d-block">
-                                            <h4 class="text-dark">Client Name</h4>
-                                            <p class="m-0 pb-3">Profession</p>
+                                            <h4 class="text-dark">Trần Minh Phương</h4>
+                                            <p class="m-0 pb-3">Khách hàng</p>
                                             <div class="d-flex pe-5">
                                                 <i class="fas fa-star text-primary"></i>
                                                 <i class="fas fa-star text-primary"></i>
@@ -249,24 +247,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                            <div class="testimonial-item img-border-radius bg-light rounded p-4" style="height: 300px;">
                                 <div class="position-relative">
                                     <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                                         style="bottom: 30px; right: 0;"></i>
                                     <div class="mb-4 pb-4 border-bottom border-secondary">
-                                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been
-                                            the
-                                            industry's standard dummy text ever since the 1500s,
-                                        </p>
+                                        <p class="mb-0">Dịch vụ tuyệt vời và giao hàng nhanh chóng! Tôi rất hài lòng với
+                                            sản phẩm.</p>
                                     </div>
                                     <div class="d-flex align-items-center flex-nowrap">
                                         <div class="bg-secondary rounded">
-                                            <img src="/client/img/testimonial-1.jpg" class="img-fluid rounded"
+                                            <img src="/client/img/testimonial-2.jpg" class="img-fluid rounded"
                                                 style="width: 100px; height: 100px;" alt="">
                                         </div>
                                         <div class="ms-4 d-block">
-                                            <h4 class="text-dark">Client Name</h4>
-                                            <p class="m-0 pb-3">Profession</p>
+                                            <h4 class="text-dark">Nguyễn Vân Anh</h4>
+                                            <p class="m-0 pb-3">Khách hàng</p>
                                             <div class="d-flex pe-5">
                                                 <i class="fas fa-star text-primary"></i>
                                                 <i class="fas fa-star text-primary"></i>
@@ -278,30 +274,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="testimonial-item img-border-radius bg-light rounded p-4">
+                            <div class="testimonial-item img-border-radius bg-light rounded p-4" style="height: 300px;">
                                 <div class="position-relative">
                                     <i class="fa fa-quote-right fa-2x text-secondary position-absolute"
                                         style="bottom: 30px; right: 0;"></i>
                                     <div class="mb-4 pb-4 border-bottom border-secondary">
-                                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been
-                                            the
-                                            industry's standard dummy text ever since the 1500s,
-                                        </p>
+                                        <p class="mb-0">Chất lượng sản phẩm rất tốt. Tôi chắc chắn sẽ giới thiệu cửa
+                                            hàng này!</p>
                                     </div>
                                     <div class="d-flex align-items-center flex-nowrap">
                                         <div class="bg-secondary rounded">
-                                            <img src="/client/img/testimonial-1.jpg" class="img-fluid rounded"
+                                            <img src="/client/img/testimonial-3.jpg" class="img-fluid rounded"
                                                 style="width: 100px; height: 100px;" alt="">
                                         </div>
                                         <div class="ms-4 d-block">
-                                            <h4 class="text-dark">Client Name</h4>
-                                            <p class="m-0 pb-3">Profession</p>
+                                            <h4 class="text-dark">Trần Thị Huyền My</h4>
+                                            <p class="m-0 pb-3">Khách hàng</p>
                                             <div class="d-flex pe-5">
                                                 <i class="fas fa-star text-primary"></i>
                                                 <i class="fas fa-star text-primary"></i>
                                                 <i class="fas fa-star text-primary"></i>
                                                 <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
+                                                <i class="fas fa-star"></i>
                                             </div>
                                         </div>
                                     </div>

@@ -58,7 +58,7 @@ public class UserController {
             // If page number is invalid, default to page 1
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 1); // Show 5 users per page
+        Pageable pageable = PageRequest.of(page - 1, 10); // Show 5 users per page
         Page<User> users = this.userService.getAllUsers(pageable);
         List<User> listUsers = users.getContent();
 

@@ -12,7 +12,6 @@
         <meta name="description" content="Phu Dev - Dự án laptopshop" />
         <meta name="author" content="Phu Dev" />
         <title>Dashboard</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="/css/styles.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
@@ -283,73 +282,9 @@
             <jsp:include page="../layout/footer.jsp" />
           </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          crossorigin="anonymous"></script>
         <script src="/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-        <script>
-          // Initialize Sales Overview Chart
-          const salesCtx = document.getElementById("salesChart").getContext("2d");
-          const salesChart = new Chart(salesCtx, {
-            type: "bar",
-            data: {
-              labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-              datasets: [
-                {
-                  label: "Monthly Sales",
-                  data: [
-                    12000000, 19000000, 15000000, 25000000, 22000000, 30000000,
-                  ],
-                  backgroundColor: "rgba(75, 192, 192, 0.6)",
-                  borderColor: "rgba(75, 192, 192, 1)",
-                  borderWidth: 1,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: "top",
-                },
-                title: {
-                  display: true,
-                  text: "Monthly Sales Overview",
-                },
-                tooltip: {
-                  callbacks: {
-                    label: function (context) {
-                      let label = context.dataset.label || "";
-                      if (label) {
-                        label += ": ";
-                      }
-                      if (context.parsed.y !== null) {
-                        label += new Intl.NumberFormat("vi-VN", {
-                          style: "currency",
-                          currency: "VND",
-                        }).format(context.parsed.y);
-                      }
-                      return label;
-                    },
-                  },
-                },
-              },
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  ticks: {
-                    callback: function (value) {
-                      return new Intl.NumberFormat("vi-VN", {
-                        style: "currency",
-                        currency: "VND",
-                        maximumFractionDigits: 0,
-                      }).format(value);
-                    },
-                  },
-                },
-              },
-            },
-          });
-        </script>
       </body>
 
       </html>
