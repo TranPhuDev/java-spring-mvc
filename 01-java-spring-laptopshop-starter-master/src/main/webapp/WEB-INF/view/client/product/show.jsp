@@ -203,8 +203,20 @@
                                     </div>
                                     <div class="col-12 col-md-8 text-center">
                                         <div class="row g-4">
-                                            <c:if test="${totalPages ==  0}">
-                                                <div>Không tìm thấy sản phẩm</div>
+                                            <c:if test="${totalPages == 0}">
+                                                <div class="text-center py-5">
+                                                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                                                    <h4 class="text-muted mb-3">Không tìm thấy sản phẩm</h4>
+                                                    <p class="text-muted">Vui lòng thử:</p>
+                                                    <ul class="text-muted text-start" style="display: inline-block;">
+                                                        <li>Kiểm tra lại từ khóa tìm kiếm</li>
+                                                        <li>Thử các bộ lọc khác</li>
+                                                        <li>Xem tất cả sản phẩm</li>
+                                                    </ul>
+                                                    <div class="mt-4">
+                                                        <a href="/products" class="btn btn-primary">Xem tất cả sản phẩm</a>
+                                                    </div>
+                                                </div>
                                             </c:if>
                                             <c:forEach var="product" items="${products}">
                                                 <div class="col-md-6 col-lg-4">
