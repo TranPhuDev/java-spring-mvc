@@ -1,6 +1,10 @@
--- Insert roles if not exists
-INSERT INTO roles (id, description, name) VALUES (1, 'admin thì full quyền', 'ADMIN') ON DUPLICATE KEY UPDATE id=id;
-INSERT INTO roles (id, description, name) VALUES (2, 'User thông thường', 'USER') ON DUPLICATE KEY UPDATE id=id;
+-- Insert roles data
+INSERT INTO roles (id, description, name) VALUES 
+(1, 'Admin thì full quyền', 'ADMIN'),
+(2, 'User thông thường', 'USER')
+ON DUPLICATE KEY UPDATE 
+description = VALUES(description),
+name = VALUES(name); 
 
 -- Insert sample products if not exists
 INSERT INTO products (id, detail_desc, factory, image, name, price, quantity, short_desc, sold, target)
