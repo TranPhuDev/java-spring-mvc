@@ -218,6 +218,7 @@ public class ProductService {
         }
     }
 
+    @Transactional
     public void handlePlaceOrder(
             User user, HttpSession session,
             String receiverName, String receiverAddress, String receiverPhone, String paymentMethod, String uuid) {
@@ -227,48 +228,46 @@ public class ProductService {
         if (cart != null) {
             List<CartDetail> cartDetails = cart.getCartDetails();
 
-            if (cartDetails != null) {
+            if (cartDetails != null && !cartDetails.isEmpty()) {
+                try {
+                    // create order
+                    Order order = new Order();
+                    order.setUser(user);
+                    order.setReceiverName(receiverName);
+                    order.setReceiverAddress(receiverAddress);
+                    order.setReceiverPhone(receiverPhone);
+                    order.setStatus("PENDING");
+                    order.setPaymentMethod(paymentMethod);
+                    order.setPaymentStatus("PAYMENT_UNPAID");
+                    order.setPaymentRef(paymentMethod.equals("COD") ? "UNKNOWN" : uuid);
 
-                // create order
-                Order order = new Order();
-                order.setUser(user);
-                order.setReceiverName(receiverName);
-                order.setReceiverAddress(receiverAddress);
-                order.setReceiverPhone(receiverPhone);
-                order.setStatus("PENDING");
+                    double sum = cartDetails.stream()
+                            .mapToDouble(CartDetail::getPrice)
+                            .sum();
+                    order.setTotalPrice(sum);
+                    order = this.orderRepository.save(order);
 
-                order.setPaymentMethod(paymentMethod);
-                order.setPaymentStatus("PAYMENT_UNPAID");
-                order.setPaymentRef(paymentMethod.equals("COD") ? "UNKNOWN" : uuid);
+                    // create orderDetail
+                    for (CartDetail cd : cartDetails) {
+                        OrderDetail orderDetail = new OrderDetail();
+                        orderDetail.setOrder(order);
+                        orderDetail.setProduct(cd.getProduct());
+                        orderDetail.setPrice(cd.getPrice());
+                        orderDetail.setQuantity(cd.getQuantity());
+                        this.orderDetailRepository.save(orderDetail);
+                    }
 
-                double sum = 0;
-                for (CartDetail cd : cartDetails) {
-                    sum += cd.getPrice();
+                    // step 2: delete cart_detail and cart
+                    for (CartDetail cd : cartDetails) {
+                        this.cartDetailRepository.deleteById(cd.getId());
+                    }
+                    this.cartRepository.deleteById(cart.getId());
+
+                    // step 3: update session
+                    session.removeAttribute("cart");
+                } catch (Exception e) {
+                    throw new RuntimeException("Error processing order: " + e.getMessage(), e);
                 }
-                order.setTotalPrice(sum);
-                order = this.orderRepository.save(order);
-
-                // create orderDetail
-
-                for (CartDetail cd : cartDetails) {
-                    OrderDetail orderDetail = new OrderDetail();
-                    orderDetail.setOrder(order);
-                    orderDetail.setProduct(cd.getProduct());
-                    orderDetail.setPrice(cd.getPrice());
-                    orderDetail.setQuantity(cd.getQuantity());
-
-                    this.orderDetailRepository.save(orderDetail);
-                }
-
-                // step 2: delete cart_detail and cart
-                for (CartDetail cd : cartDetails) {
-                    this.cartDetailRepository.deleteById(cd.getId());
-                }
-
-                this.cartRepository.deleteById(cart.getId());
-
-                // step 3 : update session
-                session.setAttribute("sum", 0);
             }
         }
     }

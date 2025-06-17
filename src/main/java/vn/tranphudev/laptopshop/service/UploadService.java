@@ -36,10 +36,10 @@ public class UploadService {
             finalName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
             File serverFile = new File(dir.getAbsolutePath() + File.separator + finalName);
 
-            BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
+            try (BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(serverFile))) {
+                stream.write(bytes);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

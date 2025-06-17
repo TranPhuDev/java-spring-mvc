@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.tranphudev.laptopshop.domain.Order;
 import vn.tranphudev.laptopshop.domain.OrderDetail;
@@ -19,6 +20,7 @@ import vn.tranphudev.laptopshop.repository.OrderDetailRepository;
 import vn.tranphudev.laptopshop.repository.OrderRepository;
 
 @Service
+@Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
@@ -41,12 +43,13 @@ public class OrderService {
                 Math.min(limit, (int) this.orderRepository.count()));
     }
 
+    @Transactional(readOnly = true)
     public Optional<Order> fetchOrderById(long id) {
         return this.orderRepository.findById(id);
     }
 
+    @Transactional
     public void deleteOrderById(long id) {
-        // delete order detail
         Optional<Order> orderOptional = this.fetchOrderById(id);
         if (orderOptional.isPresent()) {
             Order order = orderOptional.get();
@@ -54,11 +57,11 @@ public class OrderService {
             for (OrderDetail orderDetail : orderDetails) {
                 this.orderDetailRepository.deleteById(orderDetail.getId());
             }
+            this.orderRepository.deleteById(id);
         }
-
-        this.orderRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateOrder(Order order) {
         Optional<Order> orderOptional = this.fetchOrderById(order.getId());
         if (orderOptional.isPresent()) {
@@ -68,14 +71,17 @@ public class OrderService {
         }
     }
 
+    @Transactional(readOnly = true)
     public List<Order> fetchOrderByUser(User user) {
         return this.orderRepository.findByUser(user);
     }
 
+    @Transactional(readOnly = true)
     public List<Order> findByUser(User user) {
         return this.orderRepository.findByUser(user);
     }
 
+    @Transactional(readOnly = true)
     public double calculateTotalRevenue() {
         List<Order> allOrders = this.orderRepository.findAll();
         return allOrders.stream()
