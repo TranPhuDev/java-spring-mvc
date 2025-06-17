@@ -70,6 +70,7 @@ public class UserService {
         user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         user.setEmail(registerDTO.getEmail());
         user.setPassword(registerDTO.getPassword());
+        user.setAvatar("default.jpg");
 
         return user;
     }

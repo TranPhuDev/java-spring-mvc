@@ -97,6 +97,7 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                       src="/images/avatar/${user.avatar}"
                       alt="User Avatar"
                       class="avatar-image"
+                      onerror="this.src='/images/avatar/default.jpg'"
                     />
                   </div>
                   <h2 class="mb-2">${user.fullName}</h2>

@@ -6,6 +6,17 @@ ON DUPLICATE KEY UPDATE
 description = VALUES(description),
 name = VALUES(name); 
 
+-- Insert admin user
+INSERT INTO users (id, email, password, full_name, role_id, avatar, provider) VALUES 
+(1, 'admin@laptopshop.com', '$2a$10$Mc6tp.ATvhSGWevAQj0TceEELkNaAPLGbi0ZiCo4pVlivoiJZ7kVK', 'Admin User', 1, 'default.jpg', 'LOCAL')
+ON DUPLICATE KEY UPDATE 
+email = VALUES(email),
+password = VALUES(password),
+full_name = VALUES(full_name),
+role_id = VALUES(role_id),
+avatar = VALUES(avatar),
+provider = VALUES(provider);
+
 -- Insert sample products if not exists
 INSERT INTO products (id, detail_desc, factory, image, name, price, quantity, short_desc, sold, target)
 VALUES (1, 'ASUS TUF Gaming F15 FX506HF HN017W là chiếc laptop gaming giá rẻ nhưng vô cùng mạnh mẽ. Không chỉ bộ vi xử lý Intel thế hệ thứ 11, card đồ họa RTX 20 series mà điểm mạnh còn đến từ việc trang bị sẵn 16GB RAM, cho bạn hiệu năng xuất sắc mà không cần nâng cấp máy.', 'ASUS', '1711078092373-asus-01.png', 'Laptop Asus TUF Gaming', 17490000, 100, 'Intel, Core i5, 11400H', 0, 'GAMING')

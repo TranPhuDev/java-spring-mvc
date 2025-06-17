@@ -99,6 +99,7 @@ uri="http://www.springframework.org/tags/form" %>
                       object-fit: cover;
                       border: 3px solid white;
                     "
+                    onerror="this.src='/images/avatar/default.jpg'"
                   />
                   <h5 class="mb-1">${user.fullName}</h5>
                   <p class="mb-0 opacity-75">${user.email}</p>

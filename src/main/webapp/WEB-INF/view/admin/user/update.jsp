@@ -134,10 +134,11 @@ uri="http://www.springframework.org/tags/form" prefix="form" %>
                       <div class="row mb-3">
                         <div class="col d-flex justify-content-center">
                           <img
-                            style="max-height: 250px; display: none"
-                            id="avatarPreview"
-                            alt="avatar preview"
+                            src="/images/avatar/${newUser.avatar}"
+                            alt="Current Avatar"
                             class="img-thumbnail"
+                            style="max-height: 200px"
+                            onerror="this.src='/images/avatar/default.jpg'"
                           />
                         </div>
                       </div>
